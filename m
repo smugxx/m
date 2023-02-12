@@ -1401,7 +1401,7 @@ Fire.MouseButton1Click:Connect(function()
 					distance = DistanceID;
 				}
 				Events.spellHit:FireServer(DataTable)
-				task.wait(0.5)
+				wait()
 			end
 		end
 	elseif PlrName ~= "" then
@@ -1697,7 +1697,7 @@ Temp.Changed:Connect(function()
 								distance = DistanceID;
 							}
 							Events.spellHit:FireServer(DataTable)
-							task.wait(0.5)
+							wait()
 						end
 					end
 				elseif PlrName ~= "" then
