@@ -732,8 +732,8 @@ OP.Visible = false
 AutoBlock.Name = "AutoBlock"
 AutoBlock.Parent = OP
 AutoBlock.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
-AutoBlock.Position = UDim2.new(0.0299999993, 0, 0.204999998, 0)
-AutoBlock.Size = UDim2.new(0.226804122, 0, 0.080291979, 0)
+AutoBlock.Position = UDim2.new(0.03, 0, 0.314, 0)
+AutoBlock.Size = UDim2.new(0.227, 0, 0.08, 0)
 
 UICorner_27.Parent = AutoBlock
 
@@ -741,8 +741,8 @@ Trigger_6.Name = "Trigger"
 Trigger_6.Parent = AutoBlock
 Trigger_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Trigger_6.BackgroundTransparency = 0.100
-Trigger_6.Position = UDim2.new(0.119999997, 0, -0.0454545468, 0)
-Trigger_6.Size = UDim2.new(0.264705896, 0, 1.09090912, 0)
+Trigger_6.Position = UDim2.new(0.12, 0, -0.045, 0)
+Trigger_6.Size = UDim2.new(0.265, 0, 1.091, 0)
 Trigger_6.ZIndex = 2
 Trigger_6.Font = Enum.Font.SourceSans
 Trigger_6.Text = ""
@@ -759,8 +759,8 @@ UITextSizeConstraint_18.MaxTextSize = 14
 BackColor_6.Name = "BackColor"
 BackColor_6.Parent = AutoBlock
 BackColor_6.BackgroundColor3 = Color3.fromRGB(255, 171, 171)
-BackColor_6.Position = UDim2.new(0.0441176482, 0, 0.13636364, 0)
-BackColor_6.Size = UDim2.new(0.911764681, 0, 0.727272749, 0)
+BackColor_6.Position = UDim2.new(0.044, 0, 0.136, 0)
+BackColor_6.Size = UDim2.new(0.912, 0, 0.727, 0)
 
 UICorner_29.Parent = BackColor_6
 
@@ -769,10 +769,10 @@ Label_7.Parent = AutoBlock
 Label_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Label_7.BackgroundTransparency = 1.000
 Label_7.Position = UDim2.new(1, 0, 0, 0)
-Label_7.Size = UDim2.new(3.12121201, 0, 0.909090817, 0)
+Label_7.Size = UDim2.new(3.121, 0, 0.909, 0)
 Label_7.Font = Enum.Font.Highway
 Label_7.FontFace.Bold = true
-Label_7.Text = "Auto Block"
+Label_7.Text = "Auto-Block"
 Label_7.TextColor3 = Color3.fromRGB(150, 150, 150)
 Label_7.TextScaled = true
 Label_7.TextSize = 14.000
