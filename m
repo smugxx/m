@@ -31,12 +31,14 @@ ShieldBypassOn = false
 ElderBypassOn = false
 GodModeOn = false
 LoopSpellOn = false
+AutoBlockOn = false
 GhostHotkeysOn = true
 KeyCooldownOn = true
 AutoClashAmount = 51
 CurrentChat = ""
 OwnsElder = false
 OwnsFlight = false
+OwnsAim = false
 PreDeathCFrame = nil
 
 local GHotkey = Instance.new("ScreenGui")
@@ -127,7 +129,7 @@ local UITextSizeConstraint_16 = Instance.new("UITextSizeConstraint")
 local Amount = Instance.new("TextLabel")
 local UITextSizeConstraint_17 = Instance.new("UITextSizeConstraint")
 local OP = Instance.new("Frame")
-local GodMode = Instance.new("Frame")
+local AutoBlock = Instance.new("Frame")
 local UICorner_27 = Instance.new("UICorner")
 local Trigger_6 = Instance.new("TextButton")
 local UICorner_28 = Instance.new("UICorner")
@@ -154,24 +156,32 @@ local UICorner_34 = Instance.new("UICorner")
 local TextBox_4 = Instance.new("TextBox")
 local UITextSizeConstraint_23 = Instance.new("UITextSizeConstraint")
 local LoopSpell = Instance.new("Frame")
+local GodMode = Instance.new("Frame")
 local UICorner_35 = Instance.new("UICorner")
 local Trigger_8 = Instance.new("TextButton")
+local Trigger_9 = Instance.new("TextButton")
 local UICorner_36 = Instance.new("UICorner")
 local UITextSizeConstraint_24 = Instance.new("UITextSizeConstraint")
 local BackColor_8 = Instance.new("Frame")
+local BackColor_9 = Instance.new("Frame")
 local UICorner_37 = Instance.new("UICorner")
 local Label_9 = Instance.new("TextLabel")
+local Label_10 = Instance.new("TextLabel")
 local UITextSizeConstraint_25 = Instance.new("UITextSizeConstraint")
-local GetFlight = Instance.new("TextButton")
+local GetAim = Instance.new("TextButton")
 local UICorner_38 = Instance.new("UICorner")
 local UITextSizeConstraint_26 = Instance.new("UITextSizeConstraint")
-local GetElder = Instance.new("TextButton")
+local GetPasses = Instance.new("TextButton")
 local UICorner_39 = Instance.new("UICorner")
 local UITextSizeConstraint_27 = Instance.new("UITextSizeConstraint")
-local Label_10 = Instance.new("TextLabel")
 local UITextSizeConstraint_28 = Instance.new("UITextSizeConstraint")
 local Fire = Instance.new("TextButton")
+local Teleport = Instance.new("TextButton")
 local UICorner_40 = Instance.new("UICorner")
+local UICorner_41 = Instance.new("UICorner")
+local UICorner_42 = Instance.new("UICorner")
+local UICorner_43 = Instance.new("UICorner")
+local UICorner_44 = Instance.new("UICorner")
 local UITextSizeConstraint_29 = Instance.new("UITextSizeConstraint")
 local Min = Instance.new("ImageButton")
 local Exit = Instance.new("ImageButton")
@@ -181,6 +191,9 @@ local OP_2 = Instance.new("TextButton")
 local UITextSizeConstraint_31 = Instance.new("UITextSizeConstraint")
 local Regular_2 = Instance.new("TextButton")
 local UITextSizeConstraint_32 = Instance.new("UITextSizeConstraint")
+local UITextSizeConstraint_33 = Instance.new("UITextSizeConstraint")
+local UITextSizeConstraint_34 = Instance.new("UITextSizeConstraint")
+local UITextSizeConstraint_35 = Instance.new("UITextSizeConstraint")
 local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 
 GHotkey.Name = "GHotkey"
@@ -716,16 +729,16 @@ OP.BackgroundTransparency = 1.000
 OP.Size = UDim2.new(1, 0, 1, 0)
 OP.Visible = false
 
-GodMode.Name = "GodMode"
-GodMode.Parent = OP
-GodMode.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
-GodMode.Position = UDim2.new(0.0299999993, 0, 0.204999998, 0)
-GodMode.Size = UDim2.new(0.226804122, 0, 0.080291979, 0)
+AutoBlock.Name = "AutoBlock"
+AutoBlock.Parent = OP
+AutoBlock.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
+AutoBlock.Position = UDim2.new(0.0299999993, 0, 0.204999998, 0)
+AutoBlock.Size = UDim2.new(0.226804122, 0, 0.080291979, 0)
 
-UICorner_27.Parent = GodMode
+UICorner_27.Parent = AutoBlock
 
 Trigger_6.Name = "Trigger"
-Trigger_6.Parent = GodMode
+Trigger_6.Parent = AutoBlock
 Trigger_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Trigger_6.BackgroundTransparency = 0.100
 Trigger_6.Position = UDim2.new(0.119999997, 0, -0.0454545468, 0)
@@ -744,7 +757,7 @@ UITextSizeConstraint_18.Parent = Trigger_6
 UITextSizeConstraint_18.MaxTextSize = 14
 
 BackColor_6.Name = "BackColor"
-BackColor_6.Parent = GodMode
+BackColor_6.Parent = AutoBlock
 BackColor_6.BackgroundColor3 = Color3.fromRGB(255, 171, 171)
 BackColor_6.Position = UDim2.new(0.0441176482, 0, 0.13636364, 0)
 BackColor_6.Size = UDim2.new(0.911764681, 0, 0.727272749, 0)
@@ -752,14 +765,14 @@ BackColor_6.Size = UDim2.new(0.911764681, 0, 0.727272749, 0)
 UICorner_29.Parent = BackColor_6
 
 Label_7.Name = "Label"
-Label_7.Parent = GodMode
+Label_7.Parent = AutoBlock
 Label_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Label_7.BackgroundTransparency = 1.000
 Label_7.Position = UDim2.new(1, 0, 0, 0)
 Label_7.Size = UDim2.new(3.12121201, 0, 0.909090817, 0)
 Label_7.Font = Enum.Font.Highway
 Label_7.FontFace.Bold = true
-Label_7.Text = "God Mode"
+Label_7.Text = "Auto Block"
 Label_7.TextColor3 = Color3.fromRGB(150, 150, 150)
 Label_7.TextScaled = true
 Label_7.TextSize = 14.000
@@ -771,8 +784,8 @@ UITextSizeConstraint_19.MaxTextSize = 15
 ElderBypass.Name = "ElderBypass"
 ElderBypass.Parent = OP
 ElderBypass.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
-ElderBypass.Position = UDim2.new(0.0299999993, 0, 0.31400001, 0)
-ElderBypass.Size = UDim2.new(0.226804122, 0, 0.080291979, 0)
+ElderBypass.Position = UDim2.new(0.03, 0, 0.42, 0)
+ElderBypass.Size = UDim2.new(0.227, 0, 0.08, 0)
 
 UICorner_30.Parent = ElderBypass
 
@@ -780,8 +793,8 @@ Trigger_7.Name = "Trigger"
 Trigger_7.Parent = ElderBypass
 Trigger_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Trigger_7.BackgroundTransparency = 0.100
-Trigger_7.Position = UDim2.new(0.119999997, 0, -0.0454545468, 0)
-Trigger_7.Size = UDim2.new(0.264705896, 0, 1.09090912, 0)
+Trigger_7.Position = UDim2.new(0.12, 0, -0.045, 0)
+Trigger_7.Size = UDim2.new(0.265, 0, 1.091, 0)
 Trigger_7.ZIndex = 2
 Trigger_7.Font = Enum.Font.SourceSans
 Trigger_7.Text = ""
@@ -798,8 +811,8 @@ UITextSizeConstraint_20.MaxTextSize = 14
 BackColor_7.Name = "BackColor"
 BackColor_7.Parent = ElderBypass
 BackColor_7.BackgroundColor3 = Color3.fromRGB(255, 171, 171)
-BackColor_7.Position = UDim2.new(0.0441176482, 0, 0.13636364, 0)
-BackColor_7.Size = UDim2.new(0.911764681, 0, 0.727272749, 0)
+BackColor_7.Position = UDim2.new(0.044, 0, 0.136, 0)
+BackColor_7.Size = UDim2.new(0.912, 0, 0.727, 0)
 
 UICorner_32.Parent = BackColor_7
 
@@ -808,7 +821,7 @@ Label_8.Parent = ElderBypass
 Label_8.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Label_8.BackgroundTransparency = 1.000
 Label_8.Position = UDim2.new(1, 0, 0, 0)
-Label_8.Size = UDim2.new(3.12121201, 0, 0.909090817, 0)
+Label_8.Size = UDim2.new(3.121, 0, 0.909, 0)
 Label_8.Font = Enum.Font.Highway
 Label_8.FontFace.Bold = true
 Label_8.Text = "Elder Bypass"
@@ -873,8 +886,8 @@ UITextSizeConstraint_23.MaxTextSize = 18
 LoopSpell.Name = "LoopSpell"
 LoopSpell.Parent = OP
 LoopSpell.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
-LoopSpell.Position = UDim2.new(0.0299999993, 0, 0.427138686, 0)
-LoopSpell.Size = UDim2.new(0.226804122, 0, 0.080291979, 0)
+LoopSpell.Position = UDim2.new(0.384, 0, 0.781, 0)
+LoopSpell.Size = UDim2.new(0.227, 0, 0.08, 0)
 
 UICorner_35.Parent = LoopSpell
 
@@ -882,8 +895,8 @@ Trigger_8.Name = "Trigger"
 Trigger_8.Parent = LoopSpell
 Trigger_8.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Trigger_8.BackgroundTransparency = 0.100
-Trigger_8.Position = UDim2.new(0.119999997, 0, -0.0454545468, 0)
-Trigger_8.Size = UDim2.new(0.264705896, 0, 1.09090912, 0)
+Trigger_8.Position = UDim2.new(0.12, 0, -0.045, 0)
+Trigger_8.Size = UDim2.new(0.265, 0, 1.091, 0)
 Trigger_8.ZIndex = 2
 Trigger_8.Font = Enum.Font.SourceSans
 Trigger_8.Text = ""
@@ -900,8 +913,8 @@ UITextSizeConstraint_24.MaxTextSize = 14
 BackColor_8.Name = "BackColor"
 BackColor_8.Parent = LoopSpell
 BackColor_8.BackgroundColor3 = Color3.fromRGB(255, 171, 171)
-BackColor_8.Position = UDim2.new(0.0441176482, 0, 0.13636364, 0)
-BackColor_8.Size = UDim2.new(0.911764681, 0, 0.727272749, 0)
+BackColor_8.Position = UDim2.new(0.044, 0, 0.136, 0)
+BackColor_8.Size = UDim2.new(0.912, 0, 0.727, 0)
 
 UICorner_37.Parent = BackColor_8
 
@@ -909,8 +922,8 @@ Label_9.Name = "Label"
 Label_9.Parent = LoopSpell
 Label_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Label_9.BackgroundTransparency = 1.000
-Label_9.Position = UDim2.new(1, 0, 0, 0)
-Label_9.Size = UDim2.new(3.12121201, 0, 0.909090817, 0)
+Label_9.Position = UDim2.new(-0.515, 0, -1.2, 0)
+Label_9.Size = UDim2.new(2.045, 0, 0.909, 0)
 Label_9.Font = Enum.Font.Highway
 Label_9.FontFace.Bold = true
 Label_9.Text = "Loop Spell"
@@ -922,63 +935,98 @@ Label_9.TextWrapped = true
 UITextSizeConstraint_25.Parent = Label_9
 UITextSizeConstraint_25.MaxTextSize = 15
 
-GetFlight.Name = "GetFlight"
-GetFlight.Parent = OP
-GetFlight.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-GetFlight.Position = UDim2.new(0.508817911, 0, 0.548138678, 0)
-GetFlight.Size = UDim2.new(0.446735382, 0, 0.0839416087, 0)
-GetFlight.Font = Enum.Font.Highway
-GetFlight.FontFace.Bold = true
-GetFlight.Text = "Get Flight"
-GetFlight.TextColor3 = Color3.fromRGB(120, 120, 120)
-GetFlight.TextScaled = true
-GetFlight.TextSize = 14.000
-GetFlight.TextWrapped = true
+GodMode.Name = "GodMode"
+GodMode.Parent = OP
+GodMode.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
+GodMode.Position = UDim2.new(0.03, 0, 0.205, 0)
+GodMode.Size = UDim2.new(0.227, 0, 0.08, 0)
 
-UICorner_38.Parent = GetFlight
+UICorner_42.Parent = GodMode
 
-UITextSizeConstraint_26.Parent = GetFlight
-UITextSizeConstraint_26.MaxTextSize = 15
+Trigger_9.Name = "Trigger"
+Trigger_9.Parent = GodMode
+Trigger_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Trigger_9.BackgroundTransparency = 0.100
+Trigger_9.Position = UDim2.new(0.12, 0, -0.045, 0)
+Trigger_9.Size = UDim2.new(0.265, 0, 1.091, 0)
+Trigger_9.ZIndex = 2
+Trigger_9.Font = Enum.Font.SourceSans
+Trigger_9.Text = ""
+Trigger_9.TextColor3 = Color3.fromRGB(0, 0, 0)
+Trigger_9.TextScaled = true
+Trigger_9.TextSize = 14.000
+Trigger_9.TextWrapped = true
 
-GetElder.Name = "GetElder"
-GetElder.Parent = OP
-GetElder.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-GetElder.Position = UDim2.new(0.0370000005, 0, 0.548138678, 0)
-GetElder.Size = UDim2.new(0.446735382, 0, 0.0839416087, 0)
-GetElder.Font = Enum.Font.Highway
-GetElder.FontFace.Bold = true
-GetElder.Text = "Get Elder"
-GetElder.TextColor3 = Color3.fromRGB(120, 120, 120)
-GetElder.TextScaled = true
-GetElder.TextSize = 14.000
-GetElder.TextWrapped = true
+UICorner_43.Parent = Trigger_9
 
-UICorner_39.Parent = GetElder
+UITextSizeConstraint_34.Parent = Trigger_9
+UITextSizeConstraint_34.MaxTextSize = 14
 
-UITextSizeConstraint_27.Parent = GetElder
-UITextSizeConstraint_27.MaxTextSize = 15
+BackColor_9.Name = "BackColor"
+BackColor_9.Parent = GodMode
+BackColor_9.BackgroundColor3 = Color3.fromRGB(255, 171, 171)
+BackColor_9.Position = UDim2.new(0.044, 0, 0.136, 0)
+BackColor_9.Size = UDim2.new(0.912, 0, 0.727, 0)
+
+UICorner_44.Parent = BackColor_9
 
 Label_10.Name = "Label"
-Label_10.Parent = OP
+Label_10.Parent = GodMode
 Label_10.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Label_10.BackgroundTransparency = 1.000
-Label_10.Position = UDim2.new(0.0343642607, 0, 0.784671426, 0)
-Label_10.Size = UDim2.new(0.56, 0, 0.073, 0)
+Label_10.Position = UDim2.new(1, 0, 0, 0)
+Label_10.Size = UDim2.new(3.121, 0, 0.909, 0)
 Label_10.Font = Enum.Font.Highway
 Label_10.FontFace.Bold = true
-Label_10.Text = "Fires on loop with Loop Spell"
+Label_10.Text = "God Mode"
 Label_10.TextColor3 = Color3.fromRGB(150, 150, 150)
 Label_10.TextScaled = true
 Label_10.TextSize = 14.000
 Label_10.TextWrapped = true
 
-UITextSizeConstraint_28.Parent = Label_10
-UITextSizeConstraint_28.MaxTextSize = 15
+UITextSizeConstraint_35.Parent = Label_10
+UITextSizeConstraint_35.MaxTextSize = 15
+
+GetAim.Name = "GetAim"
+GetAim.Parent = OP
+GetAim.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+GetAim.Position = UDim2.new(0.509, 0, 0.548, 0)
+GetAim.Size = UDim2.new(0.447, 0, 0.084, 0)
+GetAim.Font = Enum.Font.Highway
+GetAim.FontFace.Bold = true
+GetAim.Text = "Get SilentAim"
+GetAim.TextColor3 = Color3.fromRGB(120, 120, 120)
+GetAim.TextScaled = true
+GetAim.TextSize = 14.000
+GetAim.TextWrapped = true
+
+UICorner_38.Parent = GetAim
+
+UITextSizeConstraint_26.Parent = GetAim
+UITextSizeConstraint_26.MaxTextSize = 15
+
+GetPasses.Name = "GetPasses"
+GetPasses.Parent = OP
+GetPasses.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+GetPasses.Position = UDim2.new(0.037, 0, 0.548, 0)
+GetPasses.Size = UDim2.new(0.447, 0, 0.084, 0)
+GetPasses.Font = Enum.Font.Highway
+GetPasses.FontFace.Bold = true
+GetPasses.Text = "Get Gamepasses"
+GetPasses.TextColor3 = Color3.fromRGB(120, 120, 120)
+GetPasses.TextScaled = true
+GetPasses.TextSize = 14.000
+GetPasses.TextWrapped = true
+
+UICorner_39.Parent = GetPasses
+
+UITextSizeConstraint_27.Parent = GetPasses
+UITextSizeConstraint_27.MaxTextSize = 15
 
 Fire.Name = "Fire"
 Fire.Parent = OP
 Fire.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-Fire.Position = UDim2.new(0.67320621, 0, 0.778065801, 0)
+Fire.Position = UDim2.new(0.678, 0, 0.778, 0)
 Fire.Size = UDim2.new(0.288659781, 0, 0.0839416087, 0)
 Fire.Font = Enum.Font.Highway
 Fire.FontFace.Bold = true
@@ -994,6 +1042,26 @@ UICorner_40.Parent = Fire
 
 UITextSizeConstraint_29.Parent = Fire
 UITextSizeConstraint_29.MaxTextSize = 18
+
+Teleport.Name = "Teleport"
+Teleport.Parent = OP
+Teleport.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+Teleport.Position = UDim2.new(0.037, 0, 0.778, 0)
+Teleport.Size = UDim2.new(0.288659781, 0, 0.0839416087, 0)
+Teleport.Font = Enum.Font.Highway
+Teleport.FontFace.Bold = true
+Teleport.Text = "Teleport"
+Teleport.TextColor3 = Color3.fromRGB(150, 72, 72)
+Teleport.TextScaled = true
+Teleport.TextSize = 14.000
+Teleport.TextStrokeColor3 = Color3.fromRGB(150, 150, 150)
+Teleport.TextStrokeTransparency = 0.000
+Teleport.TextWrapped = true
+
+UICorner_41.Parent = Teleport
+
+UITextSizeConstraint_33.Parent = Teleport
+UITextSizeConstraint_33.MaxTextSize = 18
 
 Min.Name = "Min"
 Min.Parent = Tab
@@ -1106,6 +1174,17 @@ if not UniqueSpell then
 	UniqueSpell.Value = 1
 end
 
+local Protego = Data:FindFirstChild("protego")
+if not Protego then
+	Protego = Instance.new("IntValue", Data)
+	Protego.Name = "protego"
+	Protego.Value = 1
+end
+
+function GiveAim()
+	OwnsAim = true
+end
+
 function GiveElder()
 	local Backup = RepStorage:FindFirstChild("Elder Wand")
 	if not Backup then
@@ -1155,14 +1234,18 @@ function AddCharacter()
 	if Active and GodModeOn then
 		Root.CFrame = PreDeathCFrame
 		if OwnsFlight then
-			GetFlight()
+			GiveFlight()
+		end
+		if OwnsAim then
+			GiveAim()
 		end
 		if OwnsElder then
-			GetElder()
+			GiveElder()
 		end
 	else
 		OwnsFlight = false
 		OwnsElder = false
+		OwnsAim = false
 	end
 	pcall(function()
 		local Humanoid = Character.Humanoid
@@ -1265,8 +1348,11 @@ function AddCharacter()
 	end)
 end
 
-GetElder.MouseButton1Click:Connect(GiveElder)
-GetFlight.MouseButton1Click:Connect(GiveFlight)
+GetPasses.MouseButton1Click:Connect(function()
+	GiveElder()
+	GiveFlight()
+end)
+GetAim.MouseButton1Click:Connect(GiveAim)
 
 Register.MouseButton1Click:Connect(function()
 	local ProductKey = string.sub(EnterKey.TextBox.Text:upper(), 1)
@@ -1427,6 +1513,21 @@ Fire.MouseButton1Click:Connect(function()
 	end
 end)
 
+Teleport.MouseButton1Click:Connect(function()
+	local PlrName = string.lower(EnterPlr.TextBox.Text)
+	local RootPart = Player.Character.PrimaryPart
+	if PlrName ~= "" then
+		for _, SelPlayer in pairs(Players:GetPlayers()) do
+			local LoweredName = string.lower(SelPlayer.Name)
+			local LoweredDspl = string.lower(SelPlayer.DisplayName)
+			if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
+				local TargetCFrame = SelPlayer.Character.PrimaryPart.CFrame
+				RootPart.CFrame = TargetCFrame + CFrame.new(2, 0, -2)
+			end
+		end
+	end
+end)
+
 GhostHotkeys.Trigger.MouseButton1Click:Connect(function()
 	if GhostHotkeysOn then
 		GhostHotkeysOn = false
@@ -1566,6 +1667,24 @@ GodMode.Trigger.MouseButton1Click:Connect(function()
 		local TwnInfo = TweenInfo.new(0.8)
 		local Tween1 = TweenService:Create(GodMode.Trigger, TwnInfo, {Position = UDim2.new(0.615, 0 -0.045, 0)})
 		local Tween2 = TweenService:Create(GodMode.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(174, 255, 177)})
+		Tween1:Play()
+		Tween2:Play()
+	end
+end)
+
+AutoBlock.Trigger.MouseButton1Click:Connect(function()
+	if AutoBlockOn then
+		AutoBlockOn = false
+		local TwnInfo = TweenInfo.new(0.8)
+		local Tween1 = TweenService:Create(AutoBlock.Trigger, TwnInfo, {Position = UDim2.new(0.12, 0 -0.045, 0)})
+		local Tween2 = TweenService:Create(AutoBlock.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(255, 171, 171)})
+		Tween1:Play()
+		Tween2:Play()
+	else
+		AutoBlockOn = true
+		local TwnInfo = TweenInfo.new(0.8)
+		local Tween1 = TweenService:Create(AutoBlock.Trigger, TwnInfo, {Position = UDim2.new(0.615, 0 -0.045, 0)})
+		local Tween2 = TweenService:Create(AutoBlock.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(174, 255, 177)})
 		Tween1:Play()
 		Tween2:Play()
 	end
@@ -1721,6 +1840,24 @@ Temp.Changed:Connect(function()
 						end
 					end
 				end
+			end
+			if AutoBlockOn then
+				local DistanceID = ((Protego.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+				local RootPos = Player.Character.PrimaryPart.CFrame.p
+				local CameraVector1 = workspace.CurrentCamera.CFrame.lookVector
+				local CameraVector2 = -(workspace.CurrentCamera.CFrame.lookVector)
+				local DataTable1 = {
+					rootPos = RootPos;
+					dir = CameraVector1;
+					distance = DistanceID;
+				}
+				local DataTable2 = {
+					rootPos = RootPos;
+					dir = CameraVector2;
+					distance = DistanceID;
+				}
+				Events.protego:FireServer(DataTable1)
+				Events.protego:FireServer(DataTable2)
 			end
 			if Holding then
 				local MousePos = Player:GetMouse().X
