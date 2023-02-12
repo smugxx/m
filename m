@@ -1148,8 +1148,9 @@ function GiveFlight()
 	OwnsFlight = true
 end
 
-function AddCharacter(Character)
+function AddCharacter()
 	task.wait(0.5)
+	local Character = Player.Character
 	local Root = Character.PrimaryPart
 	if Active and GodModeOn then
 		Root.CFrame = PreDeathCFrame
@@ -1167,7 +1168,7 @@ function AddCharacter(Character)
 		local Humanoid = Character.Humanoid
 		Humanoid.Changed:Connect(function()
 			if Active and GodModeOn then
-				if Humanoid.Health ~= 100 then
+				if Humanoid.Health ~= 100 and Humanoid.Health ~= 0 then
 					local Spell = "vulnera sanentur"
 					local LoopNumber = 0
 					repeat
@@ -1187,7 +1188,7 @@ function AddCharacter(Character)
 						Events.spellHit:FireServer(DataTable)
 						LoopNumber = LoopNumber + 1
 					until LoopNumber == 10
-				elseif Humanoid.WalkSpeed == 0 or Root.Anchored then
+				elseif Humanoid.Health ~= 0 and Humanoid.WalkSpeed == 0 or Root.Anchored then
 					local Spell = "liberacorpus"
 					local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
 					local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
@@ -1649,7 +1650,7 @@ workspace.ChildAdded:Connect(function(Part)
 end)
 
 if workspace:FindFirstChild(Player.Name) then
-	AddCharacter(Player.Character)
+	AddCharacter()
 end
 
 Player.CharacterAdded:Connect(AddCharacter)
