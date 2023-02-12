@@ -3,6 +3,7 @@ whitelist = {
 	["Bloxume"] = true;
 	["neeaba"] = true;
 	["TfojaBabciaTereska"] = true;
+	["Miguel_Mikaelsonn"] = true;
 }
 
 local Players = game:GetService("Players")
