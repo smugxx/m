@@ -1522,7 +1522,7 @@ Teleport.MouseButton1Click:Connect(function()
 			local LoweredDspl = string.lower(SelPlayer.DisplayName)
 			if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
 				local TargetCFrame = SelPlayer.Character.PrimaryPart.CFrame
-				RootPart.CFrame = TargetCFrame + CFrame.new(2, 0, -2)
+				RootPart.CFrame = TargetCFrame
 			end
 		end
 	end
