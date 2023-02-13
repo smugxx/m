@@ -5,6 +5,7 @@ whitelist = {
 	["TfojaBabciaTereska"] = true;
 	["Miguel_Mikaelsonn"] = true;
 	["BEN10ENSEMBLEOSMO"] = true;
+	["10KPHOTON"] = true;
 }
 
 local Players = game:GetService("Players")
