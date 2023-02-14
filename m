@@ -6,6 +6,7 @@ whitelist = {
 	["Miguel_Mikaelsonn"] = true;
 	["BEN10ENSEMBLEOSMO"] = true;
 	["10KPHOTON"] = true;
+	["getrichboyz"] = true;
 }
 
 local Players = game:GetService("Players")
@@ -1310,7 +1311,7 @@ function AddCharacter()
 		end)
 		Character.ChildAdded:Connect(function()
 			wait()
-			if Active then
+			if Active and Character.Humanoid.Health ~= 0 then
 				if Character:FindFirstChild("ragdollModel") or Character:FindFirstChild("frozenData") or Character:FindFirstChild("bondageFolder") then
 					local Spell = "finite incantatem"
 					local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
@@ -1842,7 +1843,7 @@ Temp.Changed:Connect(function()
 					end
 				end
 			end
-			if AutoBlockOn then
+			if AutoBlockOn and Player.Character.Humanoid.Health ~= 0 then
 				local DistanceID = ((Protego.Value + 0.5428) * 2) ^ (math.pi * 0.5)
 				local RootPos = Player.Character.PrimaryPart.CFrame.p
 				local CameraVector1 = workspace.CurrentCamera.CFrame.lookVector
