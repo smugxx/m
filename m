@@ -7,7 +7,6 @@ whitelist = {
 	["BEN10ENSEMBLEOSMO"] = true;
 	["10KPhoton"] = true;
 	["getrichboyz"] = true;
-	["samuelisbetterthans"] = true;
 }
 
 local Players = game:GetService("Players")
