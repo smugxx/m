@@ -5,7 +5,7 @@ whitelist = {
 	["TfojaBabciaTereska"] = true;
 	["Miguel_Mikaelsonn"] = true;
 	["BEN10ENSEMBLEOSMO"] = true;
-	["10KPHOTON"] = true;
+	["10KPhoton"] = true;
 	["getrichboyz"] = true;
 }
 
