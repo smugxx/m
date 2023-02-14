@@ -1184,6 +1184,34 @@ if not Protego then
 end
 
 function GiveAim()
+	workspace:WaitForChild(Player.Name)
+	local Tool = Instance.new("Tool", Player.Backpack)
+	Tool.Name = "SilentAim"
+	Tool.CanBeDropped = false
+	Tool.Enabled = false
+	Tool.ToolTip = "Click the red area around a player to fire."
+	Player.Character.ChildAdded:Connect(function(Child)
+		if Child == Tool then
+			for _, Target in pairs(Players:GetPlayers()) do
+				local Hitbox = Target.Character:FindFirstChild("Hitbox")
+				if Hitbox then
+					Hitbox.Transparency = 0.75
+					Hitbox.Detector.MaxActivationDistance = 6000
+				end
+			end
+		end
+	end)
+	Player.Character.ChildRemoved:Connect(function(Child)
+		if Child == Tool then
+			for _, Target in pairs(Players:GetPlayers()) do
+				local Hitbox = Target.Character:FindFirstChild("Hitbox")
+				if Hitbox then
+					Hitbox.Transparency = 1
+					Hitbox.Detector.MaxActivationDistance = 0
+				end
+			end
+		end
+	end)
 	OwnsAim = true
 end
 
@@ -1348,6 +1376,71 @@ function AddCharacter()
 			end
 		end)
 	end)
+end
+
+function Detect(Character)
+	local Humanoid = Character:WaitForChild("Humanoid")
+	local Primary = Character.PrimaryPart
+	local Hitbox = Instance.new("Part", Character)
+	Hitbox.Name = "Hitbox"
+	Hitbox.CanCollide = false
+	Hitbox.Size = Vector3.new(10, 10, 10)
+	Hitbox.Position = Primary.Position
+	Hitbox.Material = Enum.Material.Neon
+	Hitbox.Shape = Enum.PartType.Ball
+	Hitbox.Color = Color3.fromRGB(200, 20, 20)
+	Hitbox.Transparency = 1
+	local Weld = Instance.new("Weld", Primary)
+	Weld.Part0 = Primary
+	Weld.Part1 = Hitbox
+	local Detector = Instance.new("ClickDetector", Hitbox)
+	Detector.Name = "Detector"
+	Detector.MaxActivationDistance = 0
+	if Player.Character:FindFirstChild("SilentAim") then
+	    Hitbox.Transparency = 0.75
+	    Detector.MaxActivationDistance = 6000
+    end
+	Humanoid:GetPropertyChangedSignal("Health"):Connect(function()
+		if Humanoid.Health == 0 then
+			Hitbox:Destroy()
+			Weld:Destroy()
+		end
+	end)
+	Detector.MouseClick:Connect(function()
+		local Target = Players:GetPlayerFromCharacter(Character)
+		local Spell = string.lower(EnterSpell.TextBox.Text)
+		local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
+		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+		if CurrentChat ~= Spell then
+			task.wait(0.1)
+			Players:Chat(Spell)
+		end
+		local DataTable = {
+			hitPart = Character;
+			actor = Character;
+			hitCf = Primary.CFrame;
+			spellName = Spell;
+			id = SpellID;
+			distance = DistanceID;
+		}
+		Events.spellHit:FireServer(DataTable)
+	end)
+end
+
+Players.PlayerAdded:Connect(function(SelPlayer)
+	if Active then
+		SelPlayer.CharacterAdded:Connect(Detect)
+	end
+end)
+
+for _, SelPlayer in pairs(Players:GetPlayers()) do
+	if SelPlayer ~= Player then
+		SelPlayer.CharacterAdded:Connect(Detect)
+		local Character = workspace:FindFirstChild(SelPlayer.Name)
+		if Character then
+			Detect(Character)
+		end
+	end
 end
 
 GetPasses.MouseButton1Click:Connect(function()
