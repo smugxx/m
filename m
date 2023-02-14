@@ -7,6 +7,7 @@ whitelist = {
 	["BEN10ENSEMBLEOSMO"] = true;
 	["10KPhoton"] = true;
 	["getrichboyz"] = true;
+	["samuelisbetterthans"] = true;
 }
 
 local Players = game:GetService("Players")
@@ -1380,7 +1381,7 @@ end
 
 function Detect(Character)
 	local Humanoid = Character:WaitForChild("Humanoid")
-	local Primary = Character.PrimaryPart
+	local Primary = Character:WaitForChild("HumanoidRootPart")
 	local Hitbox = Instance.new("Part", Character)
 	Hitbox.Name = "Hitbox"
 	Hitbox.CanCollide = false
