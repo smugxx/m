@@ -9,6 +9,7 @@ whitelist = {
 	["getrichboyz"] = true;
 	["Evanisstinky"] = true;
 	["BlueBaconHai"] = true;
+	["TheKnownX"] = true;
 }
 
 local Players = game:GetService("Players")
