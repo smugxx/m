@@ -1228,7 +1228,19 @@ function GiveElder()
 	local Backup = RepStorage:FindFirstChild("Elder Wand")
 	if not Backup then
 		for _, SelPlayer in pairs(Players:GetPlayers()) do
-			local Elder = SelPlayer.Backpack:FindFirstChild("Elder Wand") or SelPlayer.Character:FindFirstChild("Elder Wand")
+			local Elder = SelPlayer.Backpack:FindFirstChild("Elder Wand")
+			if Elder then
+				local Clone1 = Elder:Clone()
+				local Clone2 = Elder:Clone()
+				Clone1.CanBeDropped = false
+				Clone2.CanBeDropped = false
+				Clone1.Parent = Player.Backpack
+				Clone2.Parent = RepStorage
+				return
+			end
+		end
+		for _, SelPlayer in pairs(Players:GetPlayers()) do
+			local Elder = SelPlayer.Character:FindFirstChild("Elder Wand")
 			if Elder then
 				local Clone1 = Elder:Clone()
 				local Clone2 = Elder:Clone()
