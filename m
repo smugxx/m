@@ -15,9 +15,9 @@ Whitelist = {
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 
-if not table.find(Whitelist, Player.UserId) then
+if not table.find(Whitelist, Player.Name) then
 	while true do
-		Players:Chat("nigger also furries suck")
+		print("wtf? huh?")
 	end
 	return
 end
