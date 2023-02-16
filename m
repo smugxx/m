@@ -11,6 +11,7 @@ Whitelist = {
 	"BlueBaconHai";
 	"TheKnownX";
 	"95C25RO3CQXM";
+	"KingVintro";
 }
 
 local Players = game:GetService("Players")
