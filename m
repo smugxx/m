@@ -10,6 +10,7 @@ Whitelist = {
 	"Evanisstinky";
 	"BlueBaconHai";
 	"TheKnownX";
+	"95C25RO3CQXM";
 }
 
 local Players = game:GetService("Players")
@@ -17,7 +18,7 @@ local Player = Players.LocalPlayer
 
 if not table.find(Whitelist, Player.Name) then
 	while true do
-		print("wtf? huh?")
+		print(math.huge/math.pi)
 	end
 	return
 end
