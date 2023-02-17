@@ -1,24 +1,11 @@
-Whitelist = {
-	"smugEx";
-	"Bloxume";
-	"neeaba";
-	"TfojaBabciaTereska";
-	"Miguel_Mikaelsonn";
-	"BEN10ENSEMBLEOSMO";
-	"10KPhoton";
-	"getrichboyz";
-	"Evanisstinky";
-	"BlueBaconHai";
-	"TheKnownX";
-	"95C25RO3CQXM";
-	"AracnaScarlet";
-	"Thebestcurrybuild";
-}
+function Whitelist()
+	return loadstring(game:HttpGetAsync("https://pastebinp.com/raw/NytwebQk"))()
+end)
 
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 
-if not table.find(Whitelist, Player.Name) then
+if not table.find(Whitelist(), Player.Name) then
 	while true do
 		print(math.huge/math.pi)
 	end
