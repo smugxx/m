@@ -1792,6 +1792,8 @@ GodMode.Trigger.MouseButton1Click:Connect(function()
 			Tween2:Play()
 			local Torso = Player.Character:FindFirstChild("UpperTorso") or Player.Character:FindFirstChild("Torso")
 			Torso:Destroy()
+			task.wait(4)
+			GodModeCooldown = false
 		else
 			GodModeOn = true
 			local TwnInfo = TweenInfo.new(0.8)
@@ -1802,6 +1804,8 @@ GodMode.Trigger.MouseButton1Click:Connect(function()
 			PreDeathCFrame = Player.Character.PrimaryPart.CFrame
 			local Torso = Player.Character:FindFirstChild("UpperTorso") or Player.Character:FindFirstChild("Torso")
 			Torso:Destroy()
+			task.wait(4)
+			GodModeCooldown = false
 		end
 	end
 end)
