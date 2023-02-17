@@ -1420,7 +1420,7 @@ function Detect(Character)
 	if Player.Character:FindFirstChild("SilentAim") then
 	    Hitbox.Transparency = 0.75
 	    Detector.MaxActivationDistance = 6000
-    end
+    	end
 	Humanoid:GetPropertyChangedSignal("Health"):Connect(function()
 		if Humanoid.Health == 0 then
 			Hitbox:Destroy()
@@ -1428,7 +1428,6 @@ function Detect(Character)
 		end
 	end)
 	Detector.MouseClick:Connect(function()
-		local Target = Players:GetPlayerFromCharacter(Character)
 		local Spell = string.lower(EnterSpell.TextBox.Text)
 		local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
 		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
