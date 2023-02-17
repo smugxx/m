@@ -143,7 +143,7 @@ local UITextSizeConstraint_16 = Instance.new("UITextSizeConstraint")
 local Amount = Instance.new("TextLabel")
 local UITextSizeConstraint_17 = Instance.new("UITextSizeConstraint")
 local OP = Instance.new("Frame")
-local AutoBlock = Instance.new("Frame")
+local AutoProtect = Instance.new("Frame")
 local UICorner_27 = Instance.new("UICorner")
 local Trigger_6 = Instance.new("TextButton")
 local UICorner_28 = Instance.new("UICorner")
@@ -1200,7 +1200,7 @@ function GiveAim()
 	local Tool = Instance.new("Tool", Player.Backpack)
 	Tool.Name = "SilentAim"
 	Tool.CanBeDropped = false
-        Tool.RequiresHandle = false
+	Tool.RequiresHandle = false
 	Tool.Enabled = false
 	Tool.ToolTip = "Click the on a player to fire the spell listed."
 	OwnsAim = true
@@ -1211,7 +1211,7 @@ function GiveTP()
 	local Tool = Instance.new("Tool", Player.Backpack)
 	Tool.Name = "Teleport"
 	Tool.CanBeDropped = false
-        Tool.RequiresHandle = false
+	Tool.RequiresHandle = false
 	Tool.Enabled = false
 	Tool.ToolTip = "Click anywhere to teleport."
 end
@@ -1698,45 +1698,25 @@ LoopSpell.Trigger.MouseButton1Click:Connect(function()
 	end
 end)
 
-GodMode.Trigger.MouseButton1Click:Connect(function()
-	if not function Added(Character)
-    while true do
-        local Humanoid = Character:FindFirstChild("Humanoid")
-        if Humanoid then
-            local Clone = Humanoid:Clone()
-            Clone.Parent = Character;
-            Clone.Health = 0;
-            Humanoid.Parent = workspace;
-            Camera.CameraSubject = Clone;
-            task.wait(0.1);
-            Fire(Character, AvadaSpell);
-            task.wait(0.1);
-            Humanoid:Destroy();
-            break;
-        end
-        task.wait();
-    end
-end
-
 function Added(Character)
 	while true do
-   		local Humanoid = Character:FindFirstChild("Humanoid")
-   		if Humanoid then
-     			local Clone = Humanoid:Clone()
-        		Clone.Parent = Character;
-        		Clone.Health = 0;
-        		Humanoid.Parent = workspace;
-        		Camera.CameraSubject = Clone;
-        		task.wait(0.1);
-        		local Spell = "avada kedavra"
-       			if CurrentChat ~= Spell then
+		local Humanoid = Character:FindFirstChild("Humanoid")
+		if Humanoid then
+			local Clone = Humanoid:Clone()
+			Clone.Parent = Character;
+			Clone.Health = 0;
+			Humanoid.Parent = workspace;
+			Camera.CameraSubject = Clone;
+			task.wait(0.1);
+			local Spell = "avada kedavra"
+			if CurrentChat ~= Spell then
 				task.wait(0.5)
-        			Players:Chat(Spell)
+				Players:Chat(Spell)
 			end
-   			local CharCFrame = Character.PrimaryPart.CFrame
-    			local SpellID = tostring(Name .. workspace.DistributedGameTime)
+			local CharCFrame = Character.PrimaryPart.CFrame
+			local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
 			local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
-    			local DataTable = {
+			local DataTable = {
 				hitPart = Character;
 				actor = Character;
 				hitCf = CharCFrame;
@@ -1745,63 +1725,63 @@ function Added(Character)
 				distance = DistanceID;
 			}
 			Events.spellHit:FireServer(DataTable)
-           		task.wait(0.1);
-          		Humanoid:Destroy();
-          		break;
-        	end
-        	task.wait();
+			task.wait(0.1);
+			Humanoid:Destroy();
+			break;
+		end
+		task.wait();
 	end
 end
 
 Player.CharacterAdded:Connect(function(Character)
-    if GodModeOn then
-        Added(Character)
-        GodModeCooldown = false
-        Character.PrimaryPart.CFrame = PreDeathCFrame
-        for i, v in pairs(Player.Backpack:GetChildren()) do
-            v:Destroy()
-        end
-        GiveTP()
-	GiveAim()
-    end
+	if GodModeOn then
+		Added(Character)
+		GodModeCooldown = false
+		Character.PrimaryPart.CFrame = PreDeathCFrame
+		for i, v in pairs(Player.Backpack:GetChildren()) do
+			v:Destroy()
+		end
+		GiveTP()
+		GiveAim()
+	end
 end)
 
 Mouse.Button1Down:Connect(function()
-    local Pos = Mouse.Hit
-    local Part = Mouse.Target
-    if Player.Character:FindFirstChild("Teleport") then
-        Player.Character.PrimaryPart.CFrame = Pos
-    end
-    local Target = nil
-    if Part and Part.Parent.Parent then
-        Target = Players:GetPlayerFromCharacter(Part.Parent) or Players:GetPlayerFromCharacter(Part.Parent.Parent)
-    end
-    if Target and Player.Character:FindFirstChild("SilentAim") then
-    	local Spell = string.lower(EnterSpell.TextBox.Text)
-	local Character = Target.Character
-        if CurrentChat ~= Spell then
-		task.wait(0.5)
-        	Players:Chat(Spell)
+	local Pos = Mouse.Hit
+	local Part = Mouse.Target
+	if Player.Character:FindFirstChild("Teleport") then
+		Player.Character.PrimaryPart.CFrame = Pos
 	end
-   	local CharCFrame = Character.PrimaryPart.CFrame
-    	local SpellID = tostring(Name .. workspace.DistributedGameTime)
-	local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
-    	local DataTable = {
-		hitPart = Character;
-		actor = Character;
-		hitCf = CharCFrame;
-		spellName = Spell;
-		id = SpellID;
-		distance = DistanceID;
-	}
-	Events.spellHit:FireServer(DataTable)
-    end
+	local Target = nil
+	if Part and Part.Parent.Parent then
+		Target = Players:GetPlayerFromCharacter(Part.Parent) or Players:GetPlayerFromCharacter(Part.Parent.Parent)
+	end
+	if Target and Player.Character:FindFirstChild("SilentAim") then
+		local Spell = string.lower(EnterSpell.TextBox.Text)
+		local Character = Target.Character
+		if CurrentChat ~= Spell then
+			task.wait(0.5)
+			Players:Chat(Spell)
+		end
+		local CharCFrame = Character.PrimaryPart.CFrame
+		local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
+		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+		local DataTable = {
+			hitPart = Character;
+			actor = Character;
+			hitCf = CharCFrame;
+			spellName = Spell;
+			id = SpellID;
+			distance = DistanceID;
+		}
+		Events.spellHit:FireServer(DataTable)
+	end
 end)
 
 GodMode.Trigger.MouseButton1Click:Connect(function()
 	if not AutoProtect and not GodModeCooldown then
 		GodModeCooldown = true
-		if GodModeOn hen
+		if GodModeOn then
 			GodModeOn = false
 			local TwnInfo = TweenInfo.new(0.8)
 			local Tween1 = TweenService:Create(GodMode.Trigger, TwnInfo, {Position = UDim2.new(0.12, 0 -0.045, 0)})
@@ -1927,7 +1907,7 @@ end
 Player.CharacterAdded:Connect(AddCharacter)
 
 local Temp = Instance.new("Frame")
-TempNumber = 1
+local TempNumber = 1
 
 Temp.Changed:Connect(function()
 	if TempNumber == 1 then
