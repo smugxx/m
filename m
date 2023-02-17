@@ -32,6 +32,8 @@ local TweenService = game:GetService("TweenService")
 local Debris = game:GetService("Debris")
 local RunService = game:GetService("RunService")
 local Events = InsertService.Events
+local Mouse = Player:GetMouse()
+local Camera = workspace.CurrentCamera
 
 Active = true
 Cooldown = false
@@ -41,8 +43,9 @@ AntiSilencioOn = false
 ShieldBypassOn = false
 ElderBypassOn = false
 GodModeOn = false
+GodModeCooldown = false
 LoopSpellOn = false
-AutoBlockOn = false
+AutoProtectOn = false
 GhostHotkeysOn = true
 KeyCooldownOn = true
 AutoClashAmount = 51
@@ -740,16 +743,16 @@ OP.BackgroundTransparency = 1.000
 OP.Size = UDim2.new(1, 0, 1, 0)
 OP.Visible = false
 
-AutoBlock.Name = "AutoBlock"
-AutoBlock.Parent = OP
-AutoBlock.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
-AutoBlock.Position = UDim2.new(0.03, 0, 0.314, 0)
-AutoBlock.Size = UDim2.new(0.227, 0, 0.08, 0)
+AutoProtect.Name = "AutoProtect"
+AutoProtect.Parent = OP
+AutoProtect.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
+AutoProtect.Position = UDim2.new(0.03, 0, 0.314, 0)
+AutoProtect.Size = UDim2.new(0.227, 0, 0.08, 0)
 
-UICorner_27.Parent = AutoBlock
+UICorner_27.Parent = AutoProtect
 
 Trigger_6.Name = "Trigger"
-Trigger_6.Parent = AutoBlock
+Trigger_6.Parent = AutoProtect
 Trigger_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Trigger_6.BackgroundTransparency = 0.100
 Trigger_6.Position = UDim2.new(0.12, 0, -0.045, 0)
@@ -768,7 +771,7 @@ UITextSizeConstraint_18.Parent = Trigger_6
 UITextSizeConstraint_18.MaxTextSize = 14
 
 BackColor_6.Name = "BackColor"
-BackColor_6.Parent = AutoBlock
+BackColor_6.Parent = AutoProtect
 BackColor_6.BackgroundColor3 = Color3.fromRGB(255, 171, 171)
 BackColor_6.Position = UDim2.new(0.044, 0, 0.136, 0)
 BackColor_6.Size = UDim2.new(0.912, 0, 0.727, 0)
@@ -776,7 +779,7 @@ BackColor_6.Size = UDim2.new(0.912, 0, 0.727, 0)
 UICorner_29.Parent = BackColor_6
 
 Label_7.Name = "Label"
-Label_7.Parent = AutoBlock
+Label_7.Parent = AutoProtect
 Label_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Label_7.BackgroundTransparency = 1.000
 Label_7.Position = UDim2.new(1, 0, 0, 0)
@@ -1197,31 +1200,20 @@ function GiveAim()
 	local Tool = Instance.new("Tool", Player.Backpack)
 	Tool.Name = "SilentAim"
 	Tool.CanBeDropped = false
+        Tool.RequiresHandle = false
 	Tool.Enabled = false
-	Tool.ToolTip = "Click the red area around a player to fire."
-	Player.Character.ChildAdded:Connect(function(Child)
-		if Child == Tool then
-			for _, Target in pairs(Players:GetPlayers()) do
-				local Hitbox = Target.Character:FindFirstChild("Hitbox")
-				if Hitbox then
-					Hitbox.Transparency = 0.75
-					Hitbox.Detector.MaxActivationDistance = 6000
-				end
-			end
-		end
-	end)
-	Player.Character.ChildRemoved:Connect(function(Child)
-		if Child == Tool then
-			for _, Target in pairs(Players:GetPlayers()) do
-				local Hitbox = Target.Character:FindFirstChild("Hitbox")
-				if Hitbox then
-					Hitbox.Transparency = 1
-					Hitbox.Detector.MaxActivationDistance = 0
-				end
-			end
-		end
-	end)
+	Tool.ToolTip = "Click the on a player to fire the spell listed."
 	OwnsAim = true
+end
+
+function GiveTP()
+	workspace:WaitForChild(Player.Name)
+	local Tool = Instance.new("Tool", Player.Backpack)
+	Tool.Name = "Teleport"
+	Tool.CanBeDropped = false
+        Tool.RequiresHandle = false
+	Tool.Enabled = false
+	Tool.ToolTip = "Click anywhere to teleport."
 end
 
 function GiveElder()
@@ -1282,7 +1274,7 @@ function AddCharacter()
 	task.wait(0.5)
 	local Character = Player.Character
 	local Root = Character.PrimaryPart
-	if Active and GodModeOn then
+	if Active and AutoProtectOn then
 		Root.CFrame = PreDeathCFrame
 		if OwnsFlight then
 			GiveFlight()
@@ -1301,7 +1293,7 @@ function AddCharacter()
 	pcall(function()
 		local Humanoid = Character.Humanoid
 		Humanoid.Changed:Connect(function()
-			if Active and GodModeOn then
+			if Active and AutoProtectOn then
 				if Humanoid.Health ~= 100 and Humanoid.Health ~= 0 then
 					local Spell = "vulnera sanentur"
 					local LoopNumber = 0
@@ -1399,74 +1391,11 @@ function AddCharacter()
 	end)
 end
 
-function Detect(Character)
-	local Humanoid = Character:WaitForChild("Humanoid")
-	local Primary = Character:WaitForChild("HumanoidRootPart")
-	local Hitbox = Instance.new("Part", Character)
-	Hitbox.Name = "Hitbox"
-	Hitbox.CanCollide = false
-	Hitbox.Size = Vector3.new(10, 10, 10)
-	Hitbox.Position = Primary.Position
-	Hitbox.Material = Enum.Material.Neon
-	Hitbox.Shape = Enum.PartType.Ball
-	Hitbox.Color = Color3.fromRGB(200, 20, 20)
-	Hitbox.Transparency = 1
-	local Weld = Instance.new("Weld", Primary)
-	Weld.Part0 = Primary
-	Weld.Part1 = Hitbox
-	local Detector = Instance.new("ClickDetector", Hitbox)
-	Detector.Name = "Detector"
-	Detector.MaxActivationDistance = 0
-	if Player.Character:FindFirstChild("SilentAim") then
-	    Hitbox.Transparency = 0.75
-	    Detector.MaxActivationDistance = 6000
-    	end
-	Humanoid:GetPropertyChangedSignal("Health"):Connect(function()
-		if Humanoid.Health == 0 then
-			Hitbox:Destroy()
-			Weld:Destroy()
-		end
-	end)
-	Detector.MouseClick:Connect(function()
-		local Spell = string.lower(EnterSpell.TextBox.Text)
-		local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
-		if CurrentChat ~= Spell then
-			task.wait(0.1)
-			Players:Chat(Spell)
-		end
-		local DataTable = {
-			hitPart = Character;
-			actor = Character;
-			hitCf = Primary.CFrame;
-			spellName = Spell;
-			id = SpellID;
-			distance = DistanceID;
-		}
-		Events.spellHit:FireServer(DataTable)
-	end)
-end
-
-Players.PlayerAdded:Connect(function(SelPlayer)
-	if Active then
-		SelPlayer.CharacterAdded:Connect(Detect)
-	end
-end)
-
-for _, SelPlayer in pairs(Players:GetPlayers()) do
-	if SelPlayer ~= Player then
-		SelPlayer.CharacterAdded:Connect(Detect)
-		local Character = workspace:FindFirstChild(SelPlayer.Name)
-		if Character then
-			Detect(Character)
-		end
-	end
-end
-
 GetPasses.MouseButton1Click:Connect(function()
 	GiveElder()
 	GiveFlight()
 end)
+
 GetAim.MouseButton1Click:Connect(GiveAim)
 
 Register.MouseButton1Click:Connect(function()
@@ -1770,38 +1699,146 @@ LoopSpell.Trigger.MouseButton1Click:Connect(function()
 end)
 
 GodMode.Trigger.MouseButton1Click:Connect(function()
-	if GodModeOn then
-		GodModeOn = false
-		local TwnInfo = TweenInfo.new(0.8)
-		local Tween1 = TweenService:Create(GodMode.Trigger, TwnInfo, {Position = UDim2.new(0.12, 0 -0.045, 0)})
-		local Tween2 = TweenService:Create(GodMode.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(255, 171, 171)})
-		Tween1:Play()
-		Tween2:Play()
-	else
-		GodModeOn = true
-		local TwnInfo = TweenInfo.new(0.8)
-		local Tween1 = TweenService:Create(GodMode.Trigger, TwnInfo, {Position = UDim2.new(0.615, 0 -0.045, 0)})
-		local Tween2 = TweenService:Create(GodMode.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(174, 255, 177)})
-		Tween1:Play()
-		Tween2:Play()
+	if not function Added(Character)
+    while true do
+        local Humanoid = Character:FindFirstChild("Humanoid")
+        if Humanoid then
+            local Clone = Humanoid:Clone()
+            Clone.Parent = Character;
+            Clone.Health = 0;
+            Humanoid.Parent = workspace;
+            Camera.CameraSubject = Clone;
+            task.wait(0.1);
+            Fire(Character, AvadaSpell);
+            task.wait(0.1);
+            Humanoid:Destroy();
+            break;
+        end
+        task.wait();
+    end
+end
+
+function Added(Character)
+	while true do
+   		local Humanoid = Character:FindFirstChild("Humanoid")
+   		if Humanoid then
+     			local Clone = Humanoid:Clone()
+        		Clone.Parent = Character;
+        		Clone.Health = 0;
+        		Humanoid.Parent = workspace;
+        		Camera.CameraSubject = Clone;
+        		task.wait(0.1);
+        		local Spell = "avada kedavra"
+       			if CurrentChat ~= Spell then
+				task.wait(0.5)
+        			Players:Chat(Spell)
+			end
+   			local CharCFrame = Character.PrimaryPart.CFrame
+    			local SpellID = tostring(Name .. workspace.DistributedGameTime)
+			local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+    			local DataTable = {
+				hitPart = Character;
+				actor = Character;
+				hitCf = CharCFrame;
+				spellName = Spell;
+				id = SpellID;
+				distance = DistanceID;
+			}
+			Events.spellHit:FireServer(DataTable)
+           		task.wait(0.1);
+          		Humanoid:Destroy();
+          		break;
+        	end
+        	task.wait();
+	end
+end
+
+Player.CharacterAdded:Connect(function(Character)
+    if GodModeOn then
+        Added(Character)
+        GodModeCooldown = false
+        Character.PrimaryPart.CFrame = PreDeathCFrame
+        for i, v in pairs(Player.Backpack:GetChildren()) do
+            v:Destroy()
+        end
+        GiveTP()
+	GiveAim()
+    end
+end)
+
+Mouse.Button1Down:Connect(function()
+    local Pos = Mouse.Hit
+    local Part = Mouse.Target
+    if Player.Character:FindFirstChild("Teleport") then
+        Player.Character.PrimaryPart.CFrame = Pos
+    end
+    local Target = nil
+    if Part and Part.Parent.Parent then
+        Target = Players:GetPlayerFromCharacter(Part.Parent) or Players:GetPlayerFromCharacter(Part.Parent.Parent)
+    end
+    if Target and Player.Character:FindFirstChild("SilentAim") then
+    	local Spell = string.lower(EnterSpell.TextBox.Text)
+	local Character = Target.Character
+        if CurrentChat ~= Spell then
+		task.wait(0.5)
+        	Players:Chat(Spell)
+	end
+   	local CharCFrame = Character.PrimaryPart.CFrame
+    	local SpellID = tostring(Name .. workspace.DistributedGameTime)
+	local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+    	local DataTable = {
+		hitPart = Character;
+		actor = Character;
+		hitCf = CharCFrame;
+		spellName = Spell;
+		id = SpellID;
+		distance = DistanceID;
+	}
+	Events.spellHit:FireServer(DataTable)
+    end
+end)
+
+GodMode.Trigger.MouseButton1Click:Connect(function()
+	if not AutoProtect and not GodModeCooldown then
+		GodModeCooldown = true
+		if GodModeOn hen
+			GodModeOn = false
+			local TwnInfo = TweenInfo.new(0.8)
+			local Tween1 = TweenService:Create(GodMode.Trigger, TwnInfo, {Position = UDim2.new(0.12, 0 -0.045, 0)})
+			local Tween2 = TweenService:Create(GodMode.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(255, 171, 171)})
+			Tween1:Play()
+			Tween2:Play()
+			Player.Character.UpperTorso:Destroy()
+		else
+			GodModeOn = true
+			local TwnInfo = TweenInfo.new(0.8)
+			local Tween1 = TweenService:Create(GodMode.Trigger, TwnInfo, {Position = UDim2.new(0.615, 0 -0.045, 0)})
+			local Tween2 = TweenService:Create(GodMode.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(174, 255, 177)})
+			Tween1:Play()
+			Tween2:Play()
+			PreDeathCFrame = Player.Character.PrimaryPart.CFrame
+			Player.Character.UpperTorso:Destroy()
+		end
 	end
 end)
 
-AutoBlock.Trigger.MouseButton1Click:Connect(function()
-	if AutoBlockOn then
-		AutoBlockOn = false
-		local TwnInfo = TweenInfo.new(0.8)
-		local Tween1 = TweenService:Create(AutoBlock.Trigger, TwnInfo, {Position = UDim2.new(0.12, 0 -0.045, 0)})
-		local Tween2 = TweenService:Create(AutoBlock.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(255, 171, 171)})
-		Tween1:Play()
-		Tween2:Play()
-	else
-		AutoBlockOn = true
-		local TwnInfo = TweenInfo.new(0.8)
-		local Tween1 = TweenService:Create(AutoBlock.Trigger, TwnInfo, {Position = UDim2.new(0.615, 0 -0.045, 0)})
-		local Tween2 = TweenService:Create(AutoBlock.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(174, 255, 177)})
-		Tween1:Play()
-		Tween2:Play()
+AutoProtect.Trigger.MouseButton1Click:Connect(function()
+	if not GodModeOn then
+		if AutoProtectOn then
+			AutoProtectOn = false
+			local TwnInfo = TweenInfo.new(0.8)
+			local Tween1 = TweenService:Create(AutoProtect.Trigger, TwnInfo, {Position = UDim2.new(0.12, 0 -0.045, 0)})
+			local Tween2 = TweenService:Create(AutoProtect.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(255, 171, 171)})
+			Tween1:Play()
+			Tween2:Play()
+		else
+			AutoProtectOn = true
+			local TwnInfo = TweenInfo.new(0.8)
+			local Tween1 = TweenService:Create(AutoProtect.Trigger, TwnInfo, {Position = UDim2.new(0.615, 0 -0.045, 0)})
+			local Tween2 = TweenService:Create(AutoProtect.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(174, 255, 177)})
+			Tween1:Play()
+			Tween2:Play()
+		end
 	end
 end)
 
@@ -1956,7 +1993,7 @@ Temp.Changed:Connect(function()
 					end
 				end
 			end
-			if AutoBlockOn and Player.Character.Humanoid.Health ~= 0 then
+			if AutoProtectOn and Player.Character.Humanoid.Health ~= 0 then
 				local DistanceID = ((Protego.Value + 0.5428) * 2) ^ (math.pi * 0.5)
 				local RootPos = Player.Character.PrimaryPart.CFrame.p
 				local CameraVector1 = workspace.CurrentCamera.CFrame.lookVector
