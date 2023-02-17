@@ -1779,9 +1779,9 @@ Mouse.Button1Down:Connect(function()
 end)
 
 GodMode.Trigger.MouseButton1Click:Connect(function()
+	print("A")
 	if not AutoProtect and not GodModeCooldown then
 		GodModeCooldown = true
-		print("A")
 		if GodModeOn then
 			GodModeOn = false
 			local TwnInfo = TweenInfo.new(0.8)
