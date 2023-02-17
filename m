@@ -1285,7 +1285,7 @@ function AddCharacter()
 			if Active and AutoProtectOn then
 				if Humanoid.Health ~= 100 and Humanoid.Health ~= 0 then
 					local Spell = "vulnera sanentur"
-					local LoopNumber = 0
+					local LoopNumber2 = 0
 					repeat
 						local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
 						local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
@@ -1301,8 +1301,8 @@ function AddCharacter()
 							distance = DistanceID;
 						}
 						Events.spellHit:FireServer(DataTable)
-						LoopNumber = LoopNumber + 1
-					until LoopNumber == 10
+						LoopNumber2 = LoopNumber2 + 1
+					until LoopNumber2 == 10
 				elseif Humanoid.Health ~= 0 and Humanoid.WalkSpeed == 0 or Root.Anchored then
 					local Spell = "liberacorpus"
 					local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
