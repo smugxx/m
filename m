@@ -1,6 +1,6 @@
 function Whitelist()
 	return loadstring(game:HttpGetAsync("https://pastebinp.com/raw/NytwebQk"))()
-end)
+end
 
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
