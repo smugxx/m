@@ -1781,7 +1781,7 @@ Mouse.Button1Down:Connect(function()
 end)
 
 GodMode.Trigger.MouseButton1Click:Connect(function()
-	if not AutoProtect and not GodModeCooldown then
+	if not AutoProtectOn and not GodModeCooldown then
 		GodModeCooldown = true
 		if GodModeOn then
 			GodModeOn = false
