@@ -786,7 +786,7 @@ Label_7.Position = UDim2.new(1, 0, 0, 0)
 Label_7.Size = UDim2.new(3.121, 0, 0.909, 0)
 Label_7.Font = Enum.Font.Highway
 Label_7.FontFace.Bold = true
-Label_7.Text = "Auto-Block"
+Label_7.Text = "Auto-Protect"
 Label_7.TextColor3 = Color3.fromRGB(150, 150, 150)
 Label_7.TextScaled = true
 Label_7.TextSize = 14.000
@@ -1710,8 +1710,8 @@ function Added(Character)
 			task.wait(0.1);
 			local Spell = "avada kedavra"
 			if CurrentChat ~= Spell then
-				task.wait(0.5)
-				Players:Chat(Spell)
+				task.wait(0.5);
+				Players:Chat(Spell);
 			end
 			local CharCFrame = Character.PrimaryPart.CFrame
 			local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
@@ -1724,7 +1724,7 @@ function Added(Character)
 				id = SpellID;
 				distance = DistanceID;
 			}
-			Events.spellHit:FireServer(DataTable)
+			Events.spellHit:FireServer(DataTable);
 			task.wait(0.1);
 			Humanoid:Destroy();
 			break;
@@ -1788,7 +1788,8 @@ GodMode.Trigger.MouseButton1Click:Connect(function()
 			local Tween2 = TweenService:Create(GodMode.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(255, 171, 171)})
 			Tween1:Play()
 			Tween2:Play()
-			Player.Character.UpperTorso:Destroy()
+			local Torso = Player.Character:FindFirstChild("UpperTorso") or Player.Character:FindFirstChild("Torso")
+			Torso:Destroy()
 		else
 			GodModeOn = true
 			local TwnInfo = TweenInfo.new(0.8)
@@ -1797,7 +1798,8 @@ GodMode.Trigger.MouseButton1Click:Connect(function()
 			Tween1:Play()
 			Tween2:Play()
 			PreDeathCFrame = Player.Character.PrimaryPart.CFrame
-			Player.Character.UpperTorso:Destroy()
+			local Torso = Player.Character:FindFirstChild("UpperTorso") or Player.Character:FindFirstChild("Torso")
+			Torso:Destroy()
 		end
 	end
 end)
