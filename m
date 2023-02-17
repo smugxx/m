@@ -1915,7 +1915,7 @@ end
 Player.CharacterAdded:Connect(AddCharacter)
 
 local Temp = Instance.new("Frame")
-local TempNumber = 1
+TempNumber = 1
 
 Temp.Changed:Connect(function()
 	if TempNumber == 1 then
