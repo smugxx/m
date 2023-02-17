@@ -1738,7 +1738,6 @@ end
 Player.CharacterAdded:Connect(function(Character)
 	if GodModeOn then
 		Added(Character)
-		GodModeCooldown = false
 		Character.PrimaryPart.CFrame = PreDeathCFrame
 		for i, v in pairs(Player.Backpack:GetChildren()) do
 			v:Destroy()
@@ -1746,6 +1745,7 @@ Player.CharacterAdded:Connect(function(Character)
 		GiveTP()
 		GiveAim()
 	end
+	GodModeCooldown = false
 end)
 
 Mouse.Button1Down:Connect(function()
