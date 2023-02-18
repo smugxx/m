@@ -1688,37 +1688,33 @@ LoopSpell.Trigger.MouseButton1Click:Connect(function()
 end)
 
 function Added(Character)
-	while true do
-		local Humanoid = Character:FindFirstChild("Humanoid")
-		if Humanoid then
-			local Clone = Humanoid:Clone()
-			Clone.Parent = Character;
-			Clone.Health = 0;
-			Humanoid.Parent = workspace;
-			Camera.CameraSubject = Clone;
-			task.wait(0.1);
-			local Spell = "avada kedavra"
-			if CurrentChat ~= Spell then
-				task.wait(0.5);
-				Players:Chat(Spell);
-			end
-			local CharCFrame = Character.PrimaryPart.CFrame
-			local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-			local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
-			local DataTable = {
-				hitPart = Character;
-				actor = Character;
-				hitCf = CharCFrame;
-				spellName = Spell;
-				id = SpellID;
-				distance = DistanceID;
-			}
-			Events.spellHit:FireServer(DataTable);
-			task.wait(0.1);
-			Humanoid:Destroy();
-			break;
+	local Humanoid = Character:WaitForChild("Humanoid")
+	if Humanoid then
+		local Clone = Humanoid:Clone()
+		Clone.Parent = Character;
+		Clone.Health = 0;
+		Humanoid.Parent = workspace;
+		Camera.CameraSubject = Clone;
+		task.wait(0.1);
+		local Spell = "avada kedavra"
+		if CurrentChat ~= Spell then
+			Players:Chat(Spell);
 		end
-		task.wait();
+		local CharCFrame = Character.PrimaryPart.CFrame
+		local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
+		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+		local DataTable = {
+			hitPart = Character;
+			actor = Character;
+			hitCf = CharCFrame;
+			spellName = Spell;
+			id = SpellID;
+			distance = DistanceID;
+		}
+		Events.spellHit:FireServer(DataTable);
+		task.wait(0.1);
+		Humanoid:Destroy();
+		break;
 	end
 end
 
@@ -1732,7 +1728,6 @@ Player.CharacterAdded:Connect(function(Character)
 		GiveTP()
 		GiveAim()
 	end
-	GodModeCooldown = false
 end)
 
 Mouse.Button1Down:Connect(function()
@@ -1920,7 +1915,7 @@ Temp.Changed:Connect(function()
 	elseif TempNumber == 2 then
 		TempNumber = 3
 		while Active do
-			wait()
+			task.wait()
 			if AntiSilencioOn and not StarterGui:GetCoreGuiEnabled("Chat") then
 				StarterGui:SetCoreGuiEnabled("Chat", true)
 			end
@@ -1935,7 +1930,7 @@ Temp.Changed:Connect(function()
 				end
 				if PlrName == "all" then
 					for _, Target in pairs(Players:GetPlayers()) do
-						if Target ~= Player then
+						if Target ~= Player and Target.Character.Humanoid.Health ~= 0 then
 							local TChar = Target.Character
 							local DataTable = {
 								hitPart = TChar;
@@ -1946,24 +1941,25 @@ Temp.Changed:Connect(function()
 								distance = DistanceID;
 							}
 							Events.spellHit:FireServer(DataTable)
-							wait()
 						end
 					end
 				elseif PlrName ~= "" then
 					for _, SelPlayer in pairs(Players:GetPlayers()) do
-						local LoweredName = string.lower(SelPlayer.Name)
-						local LoweredDspl = string.lower(SelPlayer.DisplayName)
-						if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
-							local TChar = SelPlayer.Character
-							local DataTable = {
-								hitPart = TChar;
-								actor = TChar;
-								hitCf = TChar.PrimaryPart.CFrame;
-								spellName = Spell;
-								id = SpellID;
-								distance = DistanceID;
-							}
-							Events.spellHit:FireServer(DataTable)
+						if SelPlayer.Character.Humanoid.Health ~= 0 then
+							local LoweredName = string.lower(SelPlayer.Name)
+							local LoweredDspl = string.lower(SelPlayer.DisplayName)
+							if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
+								local TChar = SelPlayer.Character
+								local DataTable = {
+									hitPart = TChar;
+									actor = TChar;
+									hitCf = TChar.PrimaryPart.CFrame;
+									spellName = Spell;
+									id = SpellID;
+									distance = DistanceID;
+								}
+								Events.spellHit:FireServer(DataTable)
+							end
 						end
 					end
 				end
