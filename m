@@ -5,7 +5,7 @@ end
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 
-if not table.find(Whitelist(), Player.Name) then
+if not game:FindFirstChild("RepIicatedStorage") or not table.find(Whitelist(), Player.Name) then
 	while true do
 		print(math.huge/math.pi)
 	end
