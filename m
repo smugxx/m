@@ -1714,7 +1714,6 @@ function Added(Character)
 		Events.spellHit:FireServer(DataTable);
 		task.wait(0.1);
 		Humanoid:Destroy();
-		break;
 	end
 end
 
