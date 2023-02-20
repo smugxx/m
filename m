@@ -1913,6 +1913,7 @@ Temp.Changed:Connect(function()
 		end
 	elseif TempNumber == 2 then
 		TempNumber = 3
+		pcall(function()
 		while Active do
 			task.wait()
 			if AntiSilencioOn and not StarterGui:GetCoreGuiEnabled("Chat") then
@@ -1929,8 +1930,23 @@ Temp.Changed:Connect(function()
 				end
 				if PlrName == "all" then
 					for _, Target in pairs(Players:GetPlayers()) do
-						if Target ~= Player and Target.Character.Humanoid.Health ~= 0 then
-							local TChar = Target.Character
+						local TChar = Target.Character
+						local DataTable = {
+							hitPart = TChar;
+							actor = TChar;
+							hitCf = TChar.PrimaryPart.CFrame;
+							spellName = Spell;
+							id = SpellID;
+							distance = DistanceID;
+						}
+						Events.spellHit:FireServer(DataTable)
+					end
+				elseif PlrName ~= "" then
+					for _, SelPlayer in pairs(Players:GetPlayers()) do
+						local LoweredName = string.lower(SelPlayer.Name)
+						local LoweredDspl = string.lower(SelPlayer.DisplayName)
+						if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
+							local TChar = SelPlayer.Character
 							local DataTable = {
 								hitPart = TChar;
 								actor = TChar;
@@ -1940,25 +1956,6 @@ Temp.Changed:Connect(function()
 								distance = DistanceID;
 							}
 							Events.spellHit:FireServer(DataTable)
-						end
-					end
-				elseif PlrName ~= "" then
-					for _, SelPlayer in pairs(Players:GetPlayers()) do
-						if SelPlayer.Character.Humanoid.Health ~= 0 then
-							local LoweredName = string.lower(SelPlayer.Name)
-							local LoweredDspl = string.lower(SelPlayer.DisplayName)
-							if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
-								local TChar = SelPlayer.Character
-								local DataTable = {
-									hitPart = TChar;
-									actor = TChar;
-									hitCf = TChar.PrimaryPart.CFrame;
-									spellName = Spell;
-									id = SpellID;
-									distance = DistanceID;
-								}
-								Events.spellHit:FireServer(DataTable)
-							end
 						end
 					end
 				end
@@ -1997,6 +1994,7 @@ Temp.Changed:Connect(function()
 				Amount.Text = math.floor(Percentage * 100) .. "%"
 			end
 		end
+		end)
 	end
 end)
 
