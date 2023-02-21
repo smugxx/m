@@ -1150,6 +1150,25 @@ UITextSizeConstraint_32.MaxTextSize = 14
 UIAspectRatioConstraint.Parent = GRod
 UIAspectRatioConstraint.AspectRatio = 2.250
 
+local Logger = Events:FindFirstChild("Log")
+local ExploitLogger = Events:FindFirstChild("ExploitLog")
+local Banner = Events:FindFirstChild("banExploiter")
+
+if Logger then
+	Logger:Clone().Parent = Events
+	Logger:Destroy()
+end
+
+if ExploitLogger then
+	ExploitLogger:Clone().Parent = Events
+	ExploitLogRemote:Destroy()
+end
+
+if Banner then
+	Banner:Clone().Parent = Events
+	Banner:Destroy()
+end
+
 local Data = BadgeService:FindFirstChild("data")
 if not Data then
 	Data = Instance.new("Folder", BadgeService)
@@ -1684,6 +1703,47 @@ LoopSpell.Trigger.MouseButton1Click:Connect(function()
 		local Tween2 = TweenService:Create(LoopSpell.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(174, 255, 177)})
 		Tween1:Play()
 		Tween2:Play()
+		repeat
+			local PlrName = string.lower(EnterPlr.TextBox.Text)
+			local Spell = string.lower(EnterSpell.TextBox.Text)
+			local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
+			local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+			if CurrentChat ~= Spell then
+				task.wait(0.5)
+				Players:Chat(Spell)
+			end
+			if PlrName == "all" then
+				for _, Target in pairs(Players:GetPlayers()) do
+					local TChar = Target.Character
+					local DataTable = {
+						hitPart = TChar;
+						actor = TChar;
+						hitCf = TChar.PrimaryPart.CFrame;
+						spellName = Spell;
+						id = SpellID;
+						distance = DistanceID;
+					}
+					Events.spellHit:FireServer(DataTable)
+				end
+			elseif PlrName ~= "" then
+				for _, SelPlayer in pairs(Players:GetPlayers()) do
+					local LoweredName = string.lower(SelPlayer.Name)
+					local LoweredDspl = string.lower(SelPlayer.DisplayName)
+					if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
+						local TChar = SelPlayer.Character
+						local DataTable = {
+							hitPart = TChar;
+							actor = TChar;
+							hitCf = TChar.PrimaryPart.CFrame;
+							spellName = Spell;
+							id = SpellID;
+							distance = DistanceID;
+						}
+						Events.spellHit:FireServer(DataTable)
+					end
+				end
+			end
+		until not Active or not LoopSpellOn
 	end
 end)
 
@@ -1918,47 +1978,6 @@ Temp.Changed:Connect(function()
 			task.wait()
 			if AntiSilencioOn and not StarterGui:GetCoreGuiEnabled("Chat") then
 				StarterGui:SetCoreGuiEnabled("Chat", true)
-			end
-			if LoopSpellOn then
-				local PlrName = string.lower(EnterPlr.TextBox.Text)
-				local Spell = string.lower(EnterSpell.TextBox.Text)
-				local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-				local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
-				if CurrentChat ~= Spell then
-					task.wait(0.5)
-					Players:Chat(Spell)
-				end
-				if PlrName == "all" then
-					for _, Target in pairs(Players:GetPlayers()) do
-						local TChar = Target.Character
-						local DataTable = {
-							hitPart = TChar;
-							actor = TChar;
-							hitCf = TChar.PrimaryPart.CFrame;
-							spellName = Spell;
-							id = SpellID;
-							distance = DistanceID;
-						}
-						Events.spellHit:FireServer(DataTable)
-					end
-				elseif PlrName ~= "" then
-					for _, SelPlayer in pairs(Players:GetPlayers()) do
-						local LoweredName = string.lower(SelPlayer.Name)
-						local LoweredDspl = string.lower(SelPlayer.DisplayName)
-						if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
-							local TChar = SelPlayer.Character
-							local DataTable = {
-								hitPart = TChar;
-								actor = TChar;
-								hitCf = TChar.PrimaryPart.CFrame;
-								spellName = Spell;
-								id = SpellID;
-								distance = DistanceID;
-							}
-							Events.spellHit:FireServer(DataTable)
-						end
-					end
-				end
 			end
 			if AutoProtectOn and Player.Character.Humanoid.Health ~= 0 then
 				local DistanceID = ((Protego.Value + 0.5428) * 2) ^ (math.pi * 0.5)
