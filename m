@@ -1716,16 +1716,18 @@ LoopSpell.Trigger.MouseButton1Click:Connect(function()
 				end
 				if PlrName == "all" then
 					for _, Target in pairs(Players:GetPlayers()) do
-						local TChar = Target.Character
-						local DataTable = {
-							hitPart = TChar;
-							actor = TChar;
-							hitCf = TChar.PrimaryPart.CFrame;
-							spellName = Spell;
-							id = SpellID;
-							distance = DistanceID;
-						}
-						Events.spellHit:FireServer(DataTable)
+						if Target ~= Player then
+							local TChar = Target.Character
+							local DataTable = {
+								hitPart = TChar;
+								actor = TChar;
+								hitCf = TChar.PrimaryPart.CFrame;
+								spellName = Spell;
+								id = SpellID;
+								distance = DistanceID;
+							}
+							Events.spellHit:FireServer(DataTable)
+						end
 					end
 				elseif PlrName ~= "" then
 					for _, SelPlayer in pairs(Players:GetPlayers()) do
