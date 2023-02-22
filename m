@@ -1161,7 +1161,7 @@ end
 
 if ExploitLogger then
 	ExploitLogger:Clone().Parent = Events
-	ExploitLogRemote:Destroy()
+	ExploitLogger:Destroy()
 end
 
 if Banner then
