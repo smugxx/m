@@ -1323,6 +1323,8 @@ function AddCharacter()
 						LoopNumber2 = LoopNumber2 + 1
 					until LoopNumber2 == 10
 				elseif Humanoid.Health ~= 0 and Humanoid.WalkSpeed == 0 or Root.Anchored then
+					Humanoid.WalkSpeed = 16
+					Root.Anchored = false
 					local Spell = "liberacorpus"
 					local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
 					local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
@@ -1542,24 +1544,27 @@ Fire.MouseButton1Click:Connect(function()
 					distance = DistanceID;
 				}
 				Events.spellHit:FireServer(DataTable)
-				wait()
+				task.wait()
 			end
 		end
 	elseif PlrName ~= "" then
-		for _, SelPlayer in pairs(Players:GetPlayers()) do
-			local LoweredName = string.lower(SelPlayer.Name)
-			local LoweredDspl = string.lower(SelPlayer.DisplayName)
-			if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
-				local TChar = SelPlayer.Character
-				local DataTable = {
-					hitPart = TChar;
-					actor = TChar;
-					hitCf = TChar.PrimaryPart.CFrame;
-					spellName = Spell;
-					id = SpellID;
-					distance = DistanceID;
-				}
-				Events.spellHit:FireServer(DataTable)
+		local Splits = table.split(PlrName, ",")
+		for _, Split in pairs(Splits) do
+			for _, SelPlayer in pairs(Players:GetPlayers()) do
+				local LoweredName = string.lower(SelPlayer.Name)
+				local LoweredDspl = string.lower(SelPlayer.DisplayName)
+				if string.sub(LoweredName, 1, #Split) == Split or string.sub(LoweredDspl, 1, #Split) == Split then
+					local TChar = SelPlayer.Character
+					local DataTable = {
+						hitPart = TChar;
+						actor = TChar;
+						hitCf = TChar.PrimaryPart.CFrame;
+						spellName = Spell;
+						id = SpellID;
+						distance = DistanceID;
+					}
+					Events.spellHit:FireServer(DataTable)
+				end
 			end
 		end
 	end
