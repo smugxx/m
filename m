@@ -1548,12 +1548,10 @@ Fire.MouseButton1Click:Connect(function()
 			end
 		end
 	elseif PlrName ~= "" then
-		local Splits = table.split(PlrName, ",")
-		for _, Split in pairs(Splits) do
 			for _, SelPlayer in pairs(Players:GetPlayers()) do
 				local LoweredName = string.lower(SelPlayer.Name)
 				local LoweredDspl = string.lower(SelPlayer.DisplayName)
-				if string.sub(LoweredName, 1, #Split) == Split or string.sub(LoweredDspl, 1, #Split) == Split then
+				if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
 					local TChar = SelPlayer.Character
 					local DataTable = {
 						hitPart = TChar;
@@ -1564,7 +1562,6 @@ Fire.MouseButton1Click:Connect(function()
 						distance = DistanceID;
 					}
 					Events.spellHit:FireServer(DataTable)
-				end
 			end
 		end
 	end
