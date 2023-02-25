@@ -6,7 +6,6 @@ local Event = InsertService.Events.spellHit
 local Cam = workspace.CurrentCamera
 local Spell = "deletrius"
 local Processing = false
-local Clashed = false
 local Blacklist = {}
 local CurrentChat = ""
 local SpectateUser = 0
@@ -119,7 +118,6 @@ function CharAdded(Character)
     local Humanoid = Character.Humanoid
     Humanoid.ChildAdded:Connect(function(Object)
         if Object.Name == "isClashing" then
-            Clashed = true;
             Processing = true;
             local Wand = Character:FindFirstChild("Wand") or Character:FindFirstChild("Elder Wand")
             local Tip = Wand.Handle.Tip
@@ -141,7 +139,7 @@ end
 
 workspace.ChildAdded:Connect(WorkspaceAdded)
 Players.PlayerAdded:Connect(PlrAdded)
-
+Player.CharacterAdded:Connect(CharAdded)
 CharAdded(Player.Character)
 
 for _, Target in pairs(Players:GetPlayers()) do
