@@ -97,19 +97,20 @@ function PlrAdded(Target)
         end
         if string.sub(Msg, 1, 3) ~= "/e " then
             local IsHacking = false
-            task.wait(0.3);
+            task.wait(0.1);
             local Objects = Player.PlayerGui.Chat.Frame.ChatChannelParentFrame.Frame_MessageLogDisplay.Scroller:GetChildren()
             for Index, Object in pairs(Objects) do
                 if Object.Name == "Frame" then
                     if not string.find(Object.TextLabel.TextButton.Text, Target.DisplayName) or not string.find(Object.TextLabel.Text, Msg) then
-                        if Index == #Objects then
-                            print(Target.Name .. " .. " .. Msg);
-                        end
+                    	IsHacking = true;
                     else
                         break;
                     end
                 end
             end
+	    if IsHacking then
+	    	print(Target.Name .. " .. " .. Msg);
+		end
         end
     end)
     Target.CharacterAdded:Connect(function(Character)
