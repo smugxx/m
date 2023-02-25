@@ -78,16 +78,20 @@ function PlrAdded(Target)
             	elseif Split[1] == ">to" then
                 	Player.Character.PrimaryPart.CFrame = NewTarget.Character.PrimaryPart.CFrame;
             	elseif Split[1] == ">here" then
-			local Amount = tonumber(Split[2])
+			local Amount = tonumber(Split[3])
 			local LoopNumber = 0
-			NewTarget = GetPlr(Split[3]);
-			if NewTarget and Amount then
+			print("precond")
+			if Amount then
+				print("condition")
 				repeat
+					print("loop")
                 			local Character = workspace:FindFirstChild(NewTarget.Name)
 					if Character then
+						print("char")
 						LoopNumber = LoopNumber + 1;
 						FireSpell(Character, "carpe retractum");
 					else
+						print("break")
 						break;
 					end
 					task.wait(0.1)
