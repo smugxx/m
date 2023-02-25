@@ -80,21 +80,16 @@ function PlrAdded(Target)
             	elseif Split[1] == ">here" then
 			local Amount = tonumber(Split[3])
 			local LoopNumber = 0
-			print("precond")
 			if Amount then
-				print("condition")
 				repeat
-					print("loop")
                 			local Character = workspace:FindFirstChild(NewTarget.Name)
 					if Character then
-						print("char")
 						LoopNumber = LoopNumber + 1;
 						FireSpell(Character, "carpe retractum");
 					else
-						print("break")
 						break;
 					end
-					task.wait(0.1)
+					task.wait(0.2)
 				until LoopNumber >= Amount
 			end
                 end
@@ -102,7 +97,7 @@ function PlrAdded(Target)
         end
         if string.sub(Msg, 1, 3) ~= "/e " then
             local IsHacking = false
-            task.wait(0.1);
+            task.wait(0.3);
             local Objects = Player.PlayerGui.Chat.Frame.ChatChannelParentFrame.Frame_MessageLogDisplay.Scroller:GetChildren()
             for Index, Object in pairs(Objects) do
                 if Object.Name == "Frame" then
