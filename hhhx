@@ -2,10 +2,14 @@ local Players = game:GetService("Players")
 local BadgeService = game:GetService("BadgeService")
 local InsertService = game:GetService("InsertService")
 local Player = Players.LocalPlayer
-local Events = InsertService.Events
-local Spell = "aboleo"
+local Event = InsertService.Events.spellHit
+local Cam = workspace.CurrentCamera
+local Spell = "deletrius"
 local Processing = false
 local Clashed = false
+local Blacklist = {}
+local CurrentChat = ""
+local SpectateUser = 0
 
 local Data = BadgeService:FindFirstChild("data")
 if not Data then
@@ -20,16 +24,67 @@ if not SpellHit then
 	SpellHit.Value = 1;
 end
 
+function GetPlr(Arg)
+	local PlrList = Players:GetPlayers()
+	for Index, SelPlayer in pairs(PlrList) do
+		local LoweredName = string.lower(SelPlayer.Name)
+		if string.sub(LoweredName, 1, #Arg) == Arg then
+			return SelPlayer;
+		elseif Index == #PlrList then
+			return nil;
+		end
+	end
+end
+
+function Deletrius(Character)
+    pcall(function()
+        if CurrentChat ~= Spell then
+            Players:Chat(Spell);
+    	end
+        local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
+    	local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+    	local DataTable = {
+    		hitPart = Character;
+    		actor = Character;
+    		hitCf = Character.PrimaryPart.CFrame;
+    		spellName = Spell;
+    		id = SpellID;
+    		distance = DistanceID;
+    	}
+    	Event:FireServer(DataTable);
+    end)
+end
+
 function PlrAdded(Target)
     Target.Chatted:Connect(function(Msg)
+        if Player == Target then
+            CurrentChat = Msg;
+            local LoweredMsg = string.lower(Msg)
+            local Split = string.split(LoweredMsg, " ")
+	    local NewTarget = GetPlr(Split[2])
+	    if NewTarget then
+            	if Split[1] == ">bl" then
+            		if not table.find(Blacklist, NewTarget.UserId) then
+                		table.insert(Blacklist, NewTarget.UserId);
+                		Deletrius(NewTarget.Character);
+			end
+            	elseif Split[1] == ">wl" then
+                    	if table.find(Blacklist, SelPlayer.UserId) then
+                        	table.remove(Blacklist, NewTarget.UserId);
+			end
+            	elseif Split[1] == ">spec" then
+                        SpectateUser = NewTarget.UserId;
+                end
+            end
+        end
         if string.sub(Msg, 1, 3) ~= "/e " then
             local IsHacking = false
             task.wait(0.1);
             local Objects = Player.PlayerGui.Chat.Frame.ChatChannelParentFrame.Frame_MessageLogDisplay.Scroller:GetChildren()
-            for _, Object in pairs(Objects) do
+            for Index, Object in pairs(Objects) do
                 if Object.Name == "Frame" then
                     if not string.find(Object.TextLabel.TextButton.Text, Target.DisplayName) or not string.find(Object.TextLabel.Text, Msg) then
-                        if i == #Objects then
+                        if Index == #Objects then
                             print(Target.Name .. " .. " .. Msg);
                         end
                     else
@@ -39,23 +94,17 @@ function PlrAdded(Target)
             end
         end
     end)
-end
-
-function EffectAdded(Object)
-    if Object.Name == "spellProjectile" and not Clashed then
-		local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
-		Players:Chat(Spell);
-		local DataTable = {
-			hitPart = Object;
-			actor = Object;
-			hitCf = Object.CFrame;
-			spellName = Spell;
-			id = SpellID;
-			distance = DistanceID;
-		}
-		Events.spellHit:FireServer(DataTable);
+    Target.CharacterAdded:Connect(function(Character)
+        if table.find(Blacklist, Target.UserId) then
+            Deletrius(Character);
+        end
+	if SpectateUser == Target.UserId or Player == Target then
+		local NewTarget = Players:GetPlayerByUserId(SpectateUser)
+		if NewTarget then
+			Cam.CameraSubject = NewTarget.Character:WaitForChild("Humanoid");
+		end
 	end
+    end)
 end
 
 function WorkspaceAdded(Object)
@@ -90,7 +139,6 @@ function CharAdded(Character)
 end
 
 workspace.ChildAdded:Connect(WorkspaceAdded)
-workspace.spellEffects.ChildAdded:Connect(EffectAdded)
 Players.PlayerAdded:Connect(PlrAdded)
 
 CharAdded(Player.Character)
