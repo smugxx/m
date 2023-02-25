@@ -1,0 +1,35 @@
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+Processing = false
+
+function Added(Character)
+    local Humanoid = Character.Humanoid
+    Humanoid.ChildAdded:Connect(function(Object)
+        task.wait(0.1)
+        if Object.Name == "isClashing" then
+            Processing = true
+            local Wand = Character:FindFirstChild("Wand") or Character:FindFirstChild("Elder Wand")
+            local Tip = Wand.Handle.Tip
+            local TipClone = Tip:Clone()
+            TipClone.Parent = Wand.Handle
+            Tip:Destroy()
+            for _, Anim in pairs(Humanoid:GetPlayingAnimationTracks()) do
+                if Anim.Name == "Animation" then
+                    Anim:Stop()
+                end
+            end
+            Object.Name = "randomname"
+            task.wait(0.5)
+            Processing = false
+        end
+    end)
+end
+
+workspace.ChildAdded:Connect(function(Object)
+    task.wait(0.2)
+    if Object.Name == "clashBlock" and Processing then
+        Object:Destroy()
+    end
+end)
+
+Added(Player.Character)
