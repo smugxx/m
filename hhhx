@@ -35,131 +35,127 @@ function GetPlr(Arg)
 end
 
 function FireSpell(Character, Spell)
-    pcall(function()
-        if CurrentChat ~= Spell then
-            Players:Chat(Spell);
-    	end
-        local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-    	local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
-    	local DataTable = {
-    		hitPart = Character;
-    		actor = Character;
-    		hitCf = Character.PrimaryPart.CFrame;
-    		spellName = Spell;
-    		id = SpellID;
-    		distance = DistanceID;
-    	}
-    	Event:FireServer(DataTable);
-    end)
+	pcall(function()
+		if CurrentChat ~= Spell then
+			Players:Chat(Spell);
+		end
+		local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
+		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+		local DataTable = {
+			hitPart = Character;
+			actor = Character;
+			hitCf = Character.PrimaryPart.CFrame;
+			spellName = Spell;
+			id = SpellID;
+			distance = DistanceID;
+		}
+		Event:FireServer(DataTable);
+	end)
 end
 
 function PlrAdded(Target)
-    Target.Chatted:Connect(function(Msg)
-        if Player == Target then
-            CurrentChat = Msg;
-            local LoweredMsg = string.lower(Msg)
-            local Split = string.split(LoweredMsg, " ")
-	    local NewTarget = GetPlr(Split[2])
-	    if NewTarget then
-            	if Split[1] == ">bl" then
-            		if not table.find(Blacklist, NewTarget.UserId) then
-                		table.insert(Blacklist, NewTarget.UserId);
-                		FireSpell(NewTarget.Character, "deletrius");
-			end
-            	elseif Split[1] == ">wl" then
-                    	if table.find(Blacklist, SelPlayer.UserId) then
-                        	table.remove(Blacklist, NewTarget.UserId);
-			end
-            	elseif Split[1] == ">spec" then
-                        SpectateUser = NewTarget.UserId;
-			Cam.CameraSubject = NewTarget.Character:WaitForChild("Humanoid");
-            	elseif Split[1] == ">del" then
-                	FireSpell(NewTarget.Character, "deletrius");
-            	elseif Split[1] == ">to" then
-                	Player.Character.PrimaryPart.CFrame = NewTarget.Character.PrimaryPart.CFrame;
-            	elseif Split[1] == ">here" then
-			local Amount = tonumber(Split[3])
-			local LoopNumber = 0
-			if Amount then
-				repeat
-                			local Character = workspace:FindFirstChild(NewTarget.Name)
-					if Character then
-						LoopNumber = LoopNumber + 1;
-						FireSpell(Character, "carpe retractum");
-					else
-						break;
+	Target.Chatted:Connect(function(Msg)
+		if Player == Target then
+			CurrentChat = Msg;
+			local LoweredMsg = string.lower(Msg)
+			local Split = string.split(LoweredMsg, " ")
+			local NewTarget = GetPlr(Split[2])
+			if NewTarget then
+				if Split[1] == ">bl" then
+					if not table.find(Blacklist, NewTarget.UserId) then
+						table.insert(Blacklist, NewTarget.UserId);
+						FireSpell(NewTarget.Character, "deletrius");
 					end
-					task.wait(0.2)
-				until LoopNumber >= Amount
+				elseif Split[1] == ">wl" then
+					if table.find(Blacklist, NewTarget.UserId) then
+						table.remove(Blacklist, NewTarget.UserId);
+					end
+				elseif Split[1] == ">spec" then
+					SpectateUser = NewTarget.UserId;
+					Cam.CameraSubject = NewTarget.Character:WaitForChild("Humanoid");
+				elseif Split[1] == ">del" then
+					FireSpell(NewTarget.Character, "deletrius");
+				elseif Split[1] == ">to" then
+					Player.Character.PrimaryPart.CFrame = NewTarget.Character.PrimaryPart.CFrame;
+				elseif Split[1] == ">here" then
+					local Amount = tonumber(Split[3])
+					local LoopNumber = 0
+					if Amount then
+						repeat
+							local Character = workspace:FindFirstChild(NewTarget.Name)
+							if Character then
+								LoopNumber = LoopNumber + 1;
+								FireSpell(Character, "carpe retractum");
+							else
+								break;
+							end
+							task.wait(0.2)
+						until LoopNumber >= Amount
+					end
+				end
 			end
-                end
-            end
-        end
-        if string.sub(Msg, 1, 3) ~= "/e " then
-            local IsHacking = false
-            task.wait(0.3);
-            local Objects = Player.PlayerGui.Chat.Frame.ChatChannelParentFrame.Frame_MessageLogDisplay.Scroller:GetChildren()
-            for Index, Object in pairs(Objects) do
-                if Object.Name == "Frame" then
-                    if not string.find(Object.TextLabel.TextButton.Text, Target.DisplayName) or not string.find(Object.TextLabel.Text, Msg) then
-                    	IsHacking = true;
-                    else
-                        break;
-                    end
-                end
-            end
-	    if IsHacking then
-	    	print(Target.Name .. " .. " .. Msg);
 		end
-        end
-    end)
-    Target.CharacterAdded:Connect(function(Character)
-        if table.find(Blacklist, Target.UserId) then
-            FireSpell(Character, "deletrius");
-        end
-	if SpectateUser == Target.UserId or Player == Target then
-		local NewTarget = Players:GetPlayerByUserId(SpectateUser)
-		if NewTarget then
-			Cam.CameraSubject = NewTarget.Character:WaitForChild("Humanoid");
-		end
-	end
-	Character.PrimaryPart.ChildAdded:Connect(function(Object)
-		local FlightTool = Target.Backpack:FindFirstChild("Flight") or Character:FindFirstChild("Flight")
-		if Object.Name == "flightGyro" and not FlightTool then
-			print(Target.Name .. " - flagged for FLIGHT BYPASS")
+		if string.sub(Msg, 1, 3) ~= "/e " then
+			task.wait(0.1);
+			local Objects = Player.PlayerGui.Chat.Frame.ChatChannelParentFrame.Frame_MessageLogDisplay.Scroller:GetChildren()
+			for Index, Object in pairs(Objects) do
+				if Object.Name == "Frame" then
+					if string.find(Object.TextLabel.TextButton.Text, Target.DisplayName) and string.find(Object.TextLabel.Text, Msg) then
+						break;
+					elseif Index == #Objects then
+						print(Target.Name .. " .. " .. Msg);
+					end
+				end
+			end
 		end
 	end)
-    end)
+	Target.CharacterAdded:Connect(function(Character)
+		if table.find(Blacklist, Target.UserId) then
+			FireSpell(Character, "deletrius");
+		end
+		if SpectateUser == Target.UserId or Player == Target then
+			local NewTarget = Players:GetPlayerByUserId(SpectateUser)
+			if NewTarget then
+				Cam.CameraSubject = NewTarget.Character:WaitForChild("Humanoid");
+			end
+		end
+		Character.PrimaryPart.ChildAdded:Connect(function(Object)
+			local FlightTool = Target.Backpack:FindFirstChild("Flight") or Character:FindFirstChild("Flight")
+			if Object.Name == "flightGyro" and not FlightTool then
+				print(Target.Name .. " - flagged for FLIGHT BYPASS")
+			end
+		end)
+	end)
 end
 
 function WorkspaceAdded(Object)
-    task.wait(0.1);
-    if Object.Name == "clashBlock" and Processing then
-        Object:Destroy();
-    end
+	task.wait(0.1);
+	if Object.Name == "clashBlock" and Processing then
+		Object:Destroy();
+	end
 end
 
 function CharAdded(Character)
-    local Humanoid = Character:WaitForChild("Humanoid")
-    Humanoid.ChildAdded:Connect(function(Object)
-        if Object.Name == "isClashing" then
-            Processing = true;
-            local Wand = Character:FindFirstChild("Wand") or Character:FindFirstChild("Elder Wand")
-            local Tip = Wand.Handle.Tip
-            local TipClone = Tip:Clone()
-            TipClone.Parent = Wand.Handle;
-            Tip:Destroy();
-            for _, Anim in pairs(Humanoid:GetPlayingAnimationTracks()) do
-                if Anim.Name == "Animation" then
-                    Anim:Stop();
-                    Anim:Destroy();
-                end
-            end
-            Object.Name = "randomname";
-            task.wait(0.5);
-            Processing = false;
-        end
-    end)
+	local Humanoid = Character:WaitForChild("Humanoid")
+	Humanoid.ChildAdded:Connect(function(Object)
+		if Object.Name == "isClashing" then
+			Processing = true;
+			local Wand = Character:FindFirstChild("Wand") or Character:FindFirstChild("Elder Wand")
+			local Tip = Wand.Handle.Tip
+			local TipClone = Tip:Clone()
+			TipClone.Parent = Wand.Handle;
+			Tip:Destroy();
+			for _, Anim in pairs(Humanoid:GetPlayingAnimationTracks()) do
+				if Anim.Name == "Animation" then
+					Anim:Stop();
+					Anim:Destroy();
+				end
+			end
+			Object.Name = "randomname";
+			task.wait(0.5);
+			Processing = false;
+		end
+	end)
 end
 
 workspace.ChildAdded:Connect(WorkspaceAdded)
@@ -168,5 +164,5 @@ Player.CharacterAdded:Connect(CharAdded)
 CharAdded(Player.Character)
 
 for _, Target in pairs(Players:GetPlayers()) do
-    PlrAdded(Target)
+	PlrAdded(Target)
 end
