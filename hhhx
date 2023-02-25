@@ -1,36 +1,75 @@
 local Players = game:GetService("Players")
+local BadgeService = game:GetService("BadgeService")
+local InsertService = game:GetService("InsertService")
 local Player = Players.LocalPlayer
+local Events = InsertService.Events
+local Spell = "aboleo"
 Processing = false
+Clashed = false
 
-function Added(Character)
+local Data = BadgeService:FindFirstChild("data")
+if not Data then
+	Data = Instance.new("Folder", BadgeService);
+	Data.Name = "data";
+end
+
+local SpellHit = Data:FindFirstChild("spellHit")
+if not SpellHit then
+	SpellHit = Instance.new("IntValue", Data);
+	SpellHit.Name = "SpellHit";
+	SpellHit.Value = 1;
+end
+
+function EffectAdded(Object)
+    if Object.Name == "spellProjectile" and not Clashed then
+		local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
+		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+		Players:Chat(Spell);
+		local DataTable = {
+			hitPart = Object;
+			actor = Object;
+			hitCf = Object.CFrame;
+			spellName = Spell;
+			id = SpellID;
+			distance = DistanceID;
+		}
+		Events.spellHit:FireServer(DataTable);
+	end
+end
+
+function WorkspaceAdded(Object)
+    task.wait(0.1);
+    if Object.Name == "clashBlock" and Processing then
+        Object:Destroy();
+    end
+end
+
+function CharAdded(Character)
     local Humanoid = Character.Humanoid
     Humanoid.ChildAdded:Connect(function(Object)
-        task.wait(0.1)
         if Object.Name == "isClashing" then
-            Processing = true
+            Clashed = true;
+            Processing = true;
             local Wand = Character:FindFirstChild("Wand") or Character:FindFirstChild("Elder Wand")
             local Tip = Wand.Handle.Tip
             local TipClone = Tip:Clone()
-            TipClone.Parent = Wand.Handle
-            Tip:Destroy()
+            TipClone.Parent = Wand.Handle;
+            Tip:Destroy();
             for _, Anim in pairs(Humanoid:GetPlayingAnimationTracks()) do
                 if Anim.Name == "Animation" then
-                    Anim:Stop()
-                    Anim:Destroy()
+                    Anim:Stop();
+                    Anim:Destroy();
                 end
             end
-            Object.Name = "randomname"
-            task.wait(0.5)
-            Processing = false
+            Object.Name = "randomname";
+            task.wait(0.5);
+            Processing = false;
         end
     end)
 end
 
-workspace.ChildAdded:Connect(function(Object)
-    task.wait(0.2)
-    if Object.Name == "clashBlock" and Processing then
-        Object:Destroy()
-    end
-end)
+workspace.ChildAdded:Connect(WorkspaceAdded)
 
-Added(Player.Character)
+workspace.spellEffects.ChildAdded:Connect(EffectAdded)
+
+CharAdded(Player.Character)
