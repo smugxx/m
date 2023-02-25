@@ -16,6 +16,7 @@ function Added(Character)
             for _, Anim in pairs(Humanoid:GetPlayingAnimationTracks()) do
                 if Anim.Name == "Animation" then
                     Anim:Stop()
+                    Anim:Destroy()
                 end
             end
             Object.Name = "randomname"
