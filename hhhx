@@ -4,7 +4,6 @@ local InsertService = game:GetService("InsertService")
 local Player = Players.LocalPlayer
 local Event = InsertService.Events.spellHit
 local Cam = workspace.CurrentCamera
-local Spell = "deletrius"
 local Processing = false
 local Blacklist = {}
 local CurrentChat = ""
@@ -35,7 +34,7 @@ function GetPlr(Arg)
 	end
 end
 
-function Deletrius(Character)
+function FireSpell(Character, Spell)
     pcall(function()
         if CurrentChat ~= Spell then
             Players:Chat(Spell);
@@ -65,7 +64,7 @@ function PlrAdded(Target)
             	if Split[1] == ">bl" then
             		if not table.find(Blacklist, NewTarget.UserId) then
                 		table.insert(Blacklist, NewTarget.UserId);
-                		Deletrius(NewTarget.Character);
+                		FireSpell(NewTarget.Character, "deletrius");
 			end
             	elseif Split[1] == ">wl" then
                     	if table.find(Blacklist, SelPlayer.UserId) then
@@ -74,6 +73,26 @@ function PlrAdded(Target)
             	elseif Split[1] == ">spec" then
                         SpectateUser = NewTarget.UserId;
 			Cam.CameraSubject = NewTarget.Character:WaitForChild("Humanoid");
+            	elseif Split[1] == ">del" then
+                	FireSpell(NewTarget.Character, "deletrius");
+            	elseif Split[1] == ">to" then
+                	Player.Character.PrimaryPart.CFrame = NewTarget.Character.PrimaryPart.CFrame;
+            	elseif Split[1] == ">here" then
+			local Amount = tonumber(Split[2])
+			local LoopNumber = 0
+			NewTarget = GetPlr(Split[3]);
+			if NewTarget and Amount then
+				repeat
+                			local Character = workspace:FindFirstChild(NewTarget.Name)
+					if Character then
+						LoopNumber = LoopNumber + 1;
+						FireSpell(Character, "carpe retractum");
+					else
+						break;
+					end
+					task.wait(0.1)
+				until LoopNumber >= Amount
+			end
                 end
             end
         end
@@ -96,7 +115,7 @@ function PlrAdded(Target)
     end)
     Target.CharacterAdded:Connect(function(Character)
         if table.find(Blacklist, Target.UserId) then
-            Deletrius(Character);
+            FireSpell(Character, "deletrius");
         end
 	if SpectateUser == Target.UserId or Player == Target then
 		local NewTarget = Players:GetPlayerByUserId(SpectateUser)
@@ -115,7 +134,7 @@ function WorkspaceAdded(Object)
 end
 
 function CharAdded(Character)
-    local Humanoid = Character.Humanoid
+    local Humanoid = Character:WaitForChild("Humanoid")
     Humanoid.ChildAdded:Connect(function(Object)
         if Object.Name == "isClashing" then
             Processing = true;
