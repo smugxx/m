@@ -74,6 +74,7 @@ function PlrAdded(Target)
 			end
             	elseif Split[1] == ">spec" then
                         SpectateUser = NewTarget.UserId;
+			Cam.CameraSubject = NewTarget.Character:WaitForChild("Humanoid");
                 end
             end
         end
