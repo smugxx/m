@@ -6,6 +6,7 @@ local Event = InsertService.Events.spellHit
 local Cam = workspace.CurrentCamera
 local Processing = false
 local Blacklist = {}
+local Whitelist = {}
 local CurrentChat = ""
 local SpectateUser = 0
 
@@ -66,9 +67,17 @@ function PlrAdded(Target)
 						table.insert(Blacklist, NewTarget.UserId);
 						FireSpell(NewTarget.Character, "deletrius");
 					end
-				elseif Split[1] == ">wl" then
+				elseif Split[1] == ">unbl" then
 					if table.find(Blacklist, NewTarget.UserId) then
 						table.remove(Blacklist, NewTarget.UserId);
+					end
+				elseif Split[1] == ">wl" then
+					if not table.find(Whitelist, NewTarget.UserId) then
+						table.insert(Whitelist, NewTarget.UserId);
+					end
+				elseif Split[1] == ">unwl" then
+					if table.find(Whitelist, NewTarget.UserId) then
+						table.remove(Whitelist, NewTarget.UserId);
 					end
 				elseif Split[1] == ">spec" then
 					SpectateUser = NewTarget.UserId;
@@ -95,7 +104,7 @@ function PlrAdded(Target)
 				end
 			end
 		end
-		if string.sub(Msg, 1, 3) ~= "/e " then
+		if string.sub(Msg, 1, 3) ~= "/e " and not table.find(Whitelist, Target.UserId) then
 			task.wait(0.2);
 			local Objects = Player.PlayerGui.Chat.Frame.ChatChannelParentFrame.Frame_MessageLogDisplay.Scroller:GetChildren()
 			for Index, Object in pairs(Objects) do
