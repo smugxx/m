@@ -4,8 +4,8 @@ local InsertService = game:GetService("InsertService")
 local Player = Players.LocalPlayer
 local Events = InsertService.Events
 local Spell = "aboleo"
-Processing = false
-Clashed = false
+local Processing = false
+local Clashed = false
 
 local Data = BadgeService:FindFirstChild("data")
 if not Data then
@@ -18,6 +18,27 @@ if not SpellHit then
 	SpellHit = Instance.new("IntValue", Data);
 	SpellHit.Name = "SpellHit";
 	SpellHit.Value = 1;
+end
+
+function PlrAdded(Target)
+    Target.Chatted:Connect(function(Msg)
+        if string.sub(Msg, 1, 3) ~= "/e " then
+            local IsHacking = false
+            task.wait(0.1);
+            local Objects = Player.PlayerGui.Chat.Frame.ChatChannelParentFrame.Frame_MessageLogDisplay.Scroller:GetChildren()
+            for _, Object in pairs(Objects) do
+                if Object.Name == "Frame" then
+                    if not string.find(Object.TextLabel.TextButton.Text, Target.DisplayName) or not string.find(Object.TextLabel.Text, Msg) then
+                        if i == #Objects then
+                            print(Target.Name .. " .. " .. Msg);
+                        end
+                    else
+                        break;
+                    end
+                end
+            end
+        end
+    end)
 end
 
 function EffectAdded(Object)
@@ -69,7 +90,11 @@ function CharAdded(Character)
 end
 
 workspace.ChildAdded:Connect(WorkspaceAdded)
-
 workspace.spellEffects.ChildAdded:Connect(EffectAdded)
+Players.PlayerAdded:Connect(PlrAdded)
 
 CharAdded(Player.Character)
+
+for _, Target in pairs(Players:GetPlayers()) do
+    PlrAdded(Target)
+end
