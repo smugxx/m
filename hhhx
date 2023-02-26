@@ -137,9 +137,9 @@ function PlrAdded(Target)
 				Cam.CameraSubject = NewTarget.Character:WaitForChild("Humanoid");
 			end
 		end
-		Character.PrimaryPart.ChildAdded:Connect(function(Object)
+		Character:WaitForChild("Head").ChildAdded:Connect(function(Object)
 			local FlightTool = Target.Backpack:FindFirstChild("Flight") or Character:FindFirstChild("Flight")
-			if Object.Name == "flightGyro" and not FlightTool then
+			if Object.Name == "flightParticle" and not FlightTool then
 				print(Target.Name .. " - flagged for FLIGHT BYPASS")
 			end
 		end)
