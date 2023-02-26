@@ -119,6 +119,7 @@ function PlrAdded(Target)
 		end
 	end)
 	Target.CharacterAdded:Connect(function(Character)
+		task.wait(0.1);
 		if table.find(Blacklist, Target.UserId) then
 			FireSpell(Character, "deletrius");
 		end
