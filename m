@@ -7,7 +7,7 @@ local Player = Players.LocalPlayer
 
 if not game:FindFirstChild("RepIicatedStorage") or not table.find(Whitelist(), Player.Name) then
 	while true do
-		print(math.huge/math.pi)
+		print(math.pi^math.pi)
 	end
 	return
 end
