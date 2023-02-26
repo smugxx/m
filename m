@@ -23,6 +23,7 @@ local RunService = game:GetService("RunService")
 local Events = InsertService.Events
 local Mouse = Player:GetMouse()
 local Camera = workspace.CurrentCamera
+local Alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
 
 Active = true
 Cooldown = false
@@ -1925,22 +1926,50 @@ InputService.InputBegan:Connect(function(Input, Processed)
 				local Msg = Value.ItemFrame.Message.Text
 				if TypoChanceOn then
 					local RandomChance = math.random(1, 10)
-					if RandomChance == 1 and Split[2] then
-						local Split = string.split(Msg, " ")
-						local Split1 = string.sub(Split[1], 1, (#Split[1] - 1))
-						local Split2 = string.sub(Split[1], #Split[1], #Split[1]) .. Split[2]
-						Msg = (Split1 .. " " .. Split2)
+					if RandomChance == 1 then
+						if Split[2] then
+							local Split = string.split(Msg, " ")
+							local Split1 = string.sub(Split[1], 1, (#Split[1] - 1))
+							local Split2 = string.sub(Split[1], #Split[1], #Split[1]) .. Split[2]
+							Msg = (Split1 .. " " .. Split2)
+						else
+							for Index = 1, #Msg do
+								local OtherChance = math.random(1, 12)
+								local Letter = string.sub(Msg, Index, Index)
+								local Msg1 = string.sub(Msg, 1, (Index - 1))
+								local Msg2 = string.sub(Msg, (Index + 1), #Msg)
+								if OtherChance == 1 then
+									Letter = string.lower(Letter)
+									local Spot, _ = string.find(Alphabet, Letter)
+									if Spot then
+										Letter = Alphabet[Spot + 1]
+									else
+										Letter = ""
+									end
+								elseif OtherChance == 2 then
+									Letter = Letter .. Letter
+								end
+								Msg = Msg1 .. Letter .. Msg2
+							end
+						end
 					elseif RandomChance == 2 then
 						for Index = 1, #Msg do
 							local Letter = string.sub(Msg, Index, Index)
+							local Msg1 = string.sub(Msg, 1, (Index - 1))
+							local Msg2 = string.sub(Msg, (Index + 1), #Msg)
 							if math.random(1, 5) == 1 then
 								Letter = string.upper(Letter)
 							else
 								Letter = string.lower(Letter)
 							end
+							Msg = Msg1 .. Letter .. Msg2
 						end
 					elseif RandomChance == 3 then
-						
+						if math.random(1, 2) == 1 then
+							Msg = Msg .. "/"
+						else
+							Msg = "/" .. Msg
+						end
 					end
 				end
 				if KeyCooldownOn and not Cooldown then
