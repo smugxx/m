@@ -69,7 +69,11 @@ function PlrAdded(Target)
 					end
 				elseif Split[1] == ">unbl" then
 					if table.find(Blacklist, NewTarget.UserId) then
-						table.remove(Blacklist, NewTarget.UserId);
+						for Index, Value in pairs(Blacklist) do
+							if Value == NewTarget.UserId then
+								table.remove(Blacklist, Index);
+							end
+						end
 					end
 				elseif Split[1] == ">wl" then
 					if not table.find(Whitelist, NewTarget.UserId) then
@@ -77,7 +81,11 @@ function PlrAdded(Target)
 					end
 				elseif Split[1] == ">unwl" then
 					if table.find(Whitelist, NewTarget.UserId) then
-						table.remove(Whitelist, NewTarget.UserId);
+						for Index, Value in pairs(Whitelist) do
+							if Value == NewTarget.UserId then
+								table.remove(Whitelist, Index);
+							end
+						end
 					end
 				elseif Split[1] == ">spec" then
 					SpectateUser = NewTarget.UserId;
