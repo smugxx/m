@@ -27,8 +27,8 @@ local Camera = workspace.CurrentCamera
 Active = true
 Cooldown = false
 Holding = false
-AntiObscuroOn = false
-AntiSilencioOn = false
+AntiCurseOn = false
+TypoChanceOn = false
 ShieldBypassOn = false
 ElderBypassOn = false
 GodModeOn = false
@@ -94,7 +94,7 @@ local BackColor_2 = Instance.new("Frame")
 local UICorner_14 = Instance.new("UICorner")
 local Label_2 = Instance.new("TextLabel")
 local UITextSizeConstraint_9 = Instance.new("UITextSizeConstraint")
-local AntiObscuro = Instance.new("Frame")
+local AntiCurse = Instance.new("Frame")
 local UICorner_15 = Instance.new("UICorner")
 local Trigger_3 = Instance.new("TextButton")
 local UICorner_16 = Instance.new("UICorner")
@@ -112,7 +112,7 @@ local BackColor_4 = Instance.new("Frame")
 local UICorner_20 = Instance.new("UICorner")
 local Label_4 = Instance.new("TextLabel")
 local UITextSizeConstraint_13 = Instance.new("UITextSizeConstraint")
-local AntiSilencio = Instance.new("Frame")
+local TypoChance = Instance.new("Frame")
 local UICorner_21 = Instance.new("UICorner")
 local Trigger_5 = Instance.new("TextButton")
 local UICorner_22 = Instance.new("UICorner")
@@ -511,16 +511,16 @@ Label_2.TextWrapped = true
 UITextSizeConstraint_9.Parent = Label_2
 UITextSizeConstraint_9.MaxTextSize = 15
 
-AntiObscuro.Name = "AntiObscuro"
-AntiObscuro.Parent = Regular
-AntiObscuro.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
-AntiObscuro.Position = UDim2.new(0.0274364259, 0, 0.543474436, 0)
-AntiObscuro.Size = UDim2.new(0.226804122, 0, 0.080291979, 0)
+AntiCurse.Name = "AntiCurse"
+AntiCurse.Parent = Regular
+AntiCurse.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
+AntiCurse.Position = UDim2.new(0.0274364259, 0, 0.543474436, 0)
+AntiCurse.Size = UDim2.new(0.226804122, 0, 0.080291979, 0)
 
-UICorner_15.Parent = AntiObscuro
+UICorner_15.Parent = AntiCurse
 
 Trigger_3.Name = "Trigger"
-Trigger_3.Parent = AntiObscuro
+Trigger_3.Parent = AntiCurse
 Trigger_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Trigger_3.BackgroundTransparency = 0.100
 Trigger_3.Position = UDim2.new(0.119999997, 0, -0.0454545468, 0)
@@ -539,7 +539,7 @@ UITextSizeConstraint_10.Parent = Trigger_3
 UITextSizeConstraint_10.MaxTextSize = 14
 
 BackColor_3.Name = "BackColor"
-BackColor_3.Parent = AntiObscuro
+BackColor_3.Parent = AntiCurse
 BackColor_3.BackgroundColor3 = Color3.fromRGB(255, 171, 171)
 BackColor_3.Position = UDim2.new(0.0441176482, 0, 0.13636364, 0)
 BackColor_3.Size = UDim2.new(0.911764681, 0, 0.727272749, 0)
@@ -547,14 +547,14 @@ BackColor_3.Size = UDim2.new(0.911764681, 0, 0.727272749, 0)
 UICorner_17.Parent = BackColor_3
 
 Label_3.Name = "Label"
-Label_3.Parent = AntiObscuro
+Label_3.Parent = AntiCurse
 Label_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Label_3.BackgroundTransparency = 1.000
 Label_3.Position = UDim2.new(1, 0, 0, 0)
 Label_3.Size = UDim2.new(3.12121201, 0, 0.909090817, 0)
 Label_3.Font = Enum.Font.Highway
 Label_3.FontFace.Bold = true
-Label_3.Text = "Anti-Obscuro"
+Label_3.Text = "Anti-Curse"
 Label_3.TextColor3 = Color3.fromRGB(150, 150, 150)
 Label_3.TextScaled = true
 Label_3.TextSize = 14.000
@@ -615,16 +615,16 @@ Label_4.TextWrapped = true
 UITextSizeConstraint_13.Parent = Label_4
 UITextSizeConstraint_13.MaxTextSize = 15
 
-AntiSilencio.Name = "AntiSilencio"
-AntiSilencio.Parent = Regular
-AntiSilencio.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
-AntiSilencio.Position = UDim2.new(0.0274364259, 0, 0.652963459, 0)
-AntiSilencio.Size = UDim2.new(0.226804122, 0, 0.080291979, 0)
+TypoChance.Name = "TypoChance"
+TypoChance.Parent = Regular
+TypoChance.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
+TypoChance.Position = UDim2.new(0.0274364259, 0, 0.652963459, 0)
+TypoChance.Size = UDim2.new(0.226804122, 0, 0.080291979, 0)
 
-UICorner_21.Parent = AntiSilencio
+UICorner_21.Parent = TypoChance
 
 Trigger_5.Name = "Trigger"
-Trigger_5.Parent = AntiSilencio
+Trigger_5.Parent = TypoChance
 Trigger_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Trigger_5.BackgroundTransparency = 0.100
 Trigger_5.Position = UDim2.new(0.119999997, 0, -0.0454545468, 0)
@@ -643,7 +643,7 @@ UITextSizeConstraint_14.Parent = Trigger_5
 UITextSizeConstraint_14.MaxTextSize = 14
 
 BackColor_5.Name = "BackColor"
-BackColor_5.Parent = AntiSilencio
+BackColor_5.Parent = TypoChance
 BackColor_5.BackgroundColor3 = Color3.fromRGB(255, 171, 171)
 BackColor_5.Position = UDim2.new(0.0441176482, 0, 0.13636364, 0)
 BackColor_5.Size = UDim2.new(0.911764681, 0, 0.727272749, 0)
@@ -651,14 +651,14 @@ BackColor_5.Size = UDim2.new(0.911764681, 0, 0.727272749, 0)
 UICorner_23.Parent = BackColor_5
 
 Label_5.Name = "Label"
-Label_5.Parent = AntiSilencio
+Label_5.Parent = TypoChance
 Label_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Label_5.BackgroundTransparency = 1.000
 Label_5.Position = UDim2.new(1, 0, 0, 0)
 Label_5.Size = UDim2.new(3.12121201, 0, 0.909090817, 0)
 Label_5.Font = Enum.Font.Highway
 Label_5.FontFace.Bold = true
-Label_5.Text = "Anti-Silencio"
+Label_5.Text = "Typo Chance"
 Label_5.TextColor3 = Color3.fromRGB(150, 150, 150)
 Label_5.TextScaled = true
 Label_5.TextSize = 14.000
@@ -1636,37 +1636,37 @@ ShieldBypass.Trigger.MouseButton1Click:Connect(function()
 	end
 end)
 
-AntiObscuro.Trigger.MouseButton1Click:Connect(function()
-	if AntiObscuroOn then
-		AntiObscuroOn = false
+AntiCurse.Trigger.MouseButton1Click:Connect(function()
+	if AntiCurseOn then
+		AntiCurseOn = false
 		local TwnInfo = TweenInfo.new(0.8)
-		local Tween1 = TweenService:Create(AntiObscuro.Trigger, TwnInfo, {Position = UDim2.new(0.12, 0 -0.045, 0)})
-		local Tween2 = TweenService:Create(AntiObscuro.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(255, 171, 171)})
+		local Tween1 = TweenService:Create(AntiCurse.Trigger, TwnInfo, {Position = UDim2.new(0.12, 0 -0.045, 0)})
+		local Tween2 = TweenService:Create(AntiCurse.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(255, 171, 171)})
 		Tween1:Play()
 		Tween2:Play()
 	else
-		AntiObscuroOn = true
+		AntiCurseOn = true
 		local TwnInfo = TweenInfo.new(0.8)
-		local Tween1 = TweenService:Create(AntiObscuro.Trigger, TwnInfo, {Position = UDim2.new(0.615, 0 -0.045, 0)})
-		local Tween2 = TweenService:Create(AntiObscuro.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(174, 255, 177)})
+		local Tween1 = TweenService:Create(AntiCurse.Trigger, TwnInfo, {Position = UDim2.new(0.615, 0 -0.045, 0)})
+		local Tween2 = TweenService:Create(AntiCurse.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(174, 255, 177)})
 		Tween1:Play()
 		Tween2:Play()
 	end
 end)
 
-AntiSilencio.Trigger.MouseButton1Click:Connect(function()
-	if AntiSilencioOn then
-		AntiSilencioOn = false
+TypoChance.Trigger.MouseButton1Click:Connect(function()
+	if TypoChanceOn then
+		TypoChanceOn = false
 		local TwnInfo = TweenInfo.new(0.8)
-		local Tween1 = TweenService:Create(AntiSilencio.Trigger, TwnInfo, {Position = UDim2.new(0.12, 0 -0.045, 0)})
-		local Tween2 = TweenService:Create(AntiSilencio.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(255, 171, 171)})
+		local Tween1 = TweenService:Create(TypoChance.Trigger, TwnInfo, {Position = UDim2.new(0.12, 0 -0.045, 0)})
+		local Tween2 = TweenService:Create(TypoChance.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(255, 171, 171)})
 		Tween1:Play()
 		Tween2:Play()
 	else
-		AntiSilencioOn = true
+		TypoChanceOn = true
 		local TwnInfo = TweenInfo.new(0.8)
-		local Tween1 = TweenService:Create(AntiSilencio.Trigger, TwnInfo, {Position = UDim2.new(0.615, 0 -0.045, 0)})
-		local Tween2 = TweenService:Create(AntiSilencio.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(174, 255, 177)})
+		local Tween1 = TweenService:Create(TypoChance.Trigger, TwnInfo, {Position = UDim2.new(0.615, 0 -0.045, 0)})
+		local Tween2 = TweenService:Create(TypoChance.BackColor, TwnInfo, {BackgroundColor3 = Color3.fromRGB(174, 255, 177)})
 		Tween1:Play()
 		Tween2:Play()
 	end
@@ -1913,7 +1913,7 @@ Slider.MouseButton1Down:Connect(function()
 end)
 
 Players.LocalPlayer.PlayerGui.ChildAdded:Connect(function(Object)
-	if Active and AntiObscuroOn and Object.Name == "obscuroGui" then
+	if Active and AntiCurseOn and Object.Name == "obscuroGui" then
 		Object.Frame.Visible = false
 	end
 end)
@@ -1923,6 +1923,26 @@ InputService.InputBegan:Connect(function(Input, Processed)
 		for _, Value in pairs(List:GetChildren()) do
 			if Value.Name == "Item" and Value.ItemFrame.Key.Text == Input.KeyCode.Name:upper() then
 				local Msg = Value.ItemFrame.Message.Text
+				if TypoChanceOn then
+					local RandomChance = math.random(1, 10)
+					if RandomChance == 1 and Split[2] then
+						local Split = string.split(Msg, " ")
+						local Split1 = string.sub(Split[1], 1, (#Split[1] - 1))
+						local Split2 = string.sub(Split[1], #Split[1], #Split[1]) .. Split[2]
+						Msg = (Split1 .. " " .. Split2)
+					elseif RandomChance == 2 then
+						for Index = 1, #Msg do
+							local Letter = string.sub(Msg, Index, Index)
+							if math.random(1, 5) == 1 then
+								Letter = string.upper(Letter)
+							else
+								Letter = string.lower(Letter)
+							end
+						end
+					elseif RandomChance == 3 then
+						
+					end
+				end
 				if KeyCooldownOn and not Cooldown then
 					Cooldown = true
 					Players:Chat(Msg)
@@ -1983,7 +2003,7 @@ Temp.Changed:Connect(function()
 		pcall(function()
 		while Active do
 			task.wait()
-			if AntiSilencioOn and not StarterGui:GetCoreGuiEnabled("Chat") then
+			if AntiCurseOn and not StarterGui:GetCoreGuiEnabled("Chat") then
 				StarterGui:SetCoreGuiEnabled("Chat", true)
 			end
 			if AutoProtectOn and Player.Character.Humanoid.Health ~= 0 then
