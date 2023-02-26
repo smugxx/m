@@ -234,5 +234,5 @@ Player.CharacterAdded:Connect(CharAdded)
 CharAdded(Player.Character)
 
 for _, Target in pairs(Players:GetPlayers()) do
-	PlrAdded(Target)
+	PlrAdded(Target);
 end
