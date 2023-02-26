@@ -54,6 +54,42 @@ function FireSpell(Character, Spell)
 	end)
 end
 
+function WandAdded(Target, Wand)
+	task.wait();
+	if Wand:IsA("Tool") and not Wand:FindFirstChild("KnownTag") then
+		local Tag = Instance.new("BoolValue", Wand)
+		local Humanoid = Target.Character:WaitForChild("Humanoid")
+		local Trail = Wand.Handle:FindFirstChild("tipTrail")
+		Tag.Name = "KnownTag";
+		Wand.ChildRemoved:Connect(function(Object)
+			if Object.Name == "Mesh" and Tag then
+				print(Target.Name .. " - flagged for BRICK WAND");
+			end
+		end)
+		Humanoid.ChildAdded:Connect(function(Object)
+			if Object.Name == "isClashing" or Object.Name == "obliviateTag" then
+				if Trail then
+					Trail.Enabled = false;
+				end
+			end
+		end)
+		if Trail then
+			Trail:GetPropertyChangedSignal("Enabled"):Connect(function()
+				if Trail.Enabled and Humanoid then
+					local IsClashing = Humanoid:FindFirstChild("isClashing")
+					local ObliviateTag = Humanoid:FindFirstChild("obliviateTag")
+					if IsClashing then
+						print(Target.Name .. " - flagged for CLASH GODMODE");
+					end
+					if ObliviateTag then
+						print(Target.Name .. " - flagged for ANTI OBLIVIATE");
+					end
+				end
+			end)
+		end
+	end
+end
+
 function PlrAdded(Target)
 	Target.Chatted:Connect(function(Msg)
 		if Player == Target then
@@ -106,7 +142,7 @@ function PlrAdded(Target)
 							else
 								break;
 							end
-							task.wait(0.2)
+							task.wait(0.2);
 						until LoopNumber >= Amount
 					end
 				end
@@ -140,16 +176,32 @@ function PlrAdded(Target)
 		Character:WaitForChild("Head").ChildAdded:Connect(function(Object)
 			local FlightTool = Target.Backpack:FindFirstChild("Flight") or Character:FindFirstChild("Flight")
 			if Object.Name == "flightParticle" and not FlightTool then
-				print(Target.Name .. " - flagged for FLIGHT BYPASS")
+				print(Target.Name .. " - flagged for FLIGHT BYPASS");
 			end
 		end)
+		for _, Object in pairs(Character:GetChildren()) do
+			WandAdded(Target, Object);
+		end
+		Character.ChildAdded:Connect(function(Object)
+			WandAdded(Target, Object);
+		end)
+	end)
+	for _, Object in pairs(Target.Backpack:GetChildren()) do
+		WandAdded(Target, Object);
+	end
+	Target.Backpack.ChildAdded:Connect(function(Object)
+		WandAdded(Target, Object);
 	end)
 end
 
 function WorkspaceAdded(Object)
 	task.wait(0.1);
+	local KnownTag = Object:FindFirstChild("KnownTag")
 	if Object.Name == "clashBlock" and Processing then
 		Object:Destroy();
+	end
+	if KnownTag then
+		KnownTag:Destroy();
 	end
 end
 
