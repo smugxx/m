@@ -1920,7 +1920,7 @@ Players.LocalPlayer.PlayerGui.ChildAdded:Connect(function(Object)
 end)
 
 InputService.InputBegan:Connect(function(Input, Processed)
-	if Active and not Processed then
+	if Input.UserInputType == Enum.UserInputType.Keyboard and Active and not Processed then
 		for _, Value in pairs(List:GetChildren()) do
 			if Value.Visible and Value.Name == "Item" and Value.ItemFrame.Key.Text == Input.KeyCode.Name:upper() then
 				local Msg = Value.ItemFrame.Message.Text
