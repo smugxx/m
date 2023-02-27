@@ -1927,8 +1927,8 @@ InputService.InputBegan:Connect(function(Input, Processed)
 				if TypoChanceOn then
 					local RandomChance = math.random(1, 10)
 					if RandomChance == 1 then
+						local Split = string.split(Msg, " ")
 						if Split[2] then
-							local Split = string.split(Msg, " ")
 							local Split1 = string.sub(Split[1], 1, (#Split[1] - 1))
 							local Split2 = string.sub(Split[1], #Split[1], #Split[1]) .. Split[2]
 							Msg = (Split1 .. " " .. Split2)
