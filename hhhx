@@ -212,7 +212,7 @@ function PlrAdded(Target)
 			local Anims = GetAnims(Target)
 			local ElderWand = Target.Character:FindFirstChild("Elder Wand")
 			local Wand = Target.Character:FindFirstChild("Wand")
-			if ElderWand then
+			if not ElderWand then
 				if table.find(Anims, "infernum") or table.find(Anims, "diabolica") then
 					print(Target.Name .. " - flagged for ELDER BYPASS");
 				end
