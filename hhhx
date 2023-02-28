@@ -10,6 +10,16 @@ local Whitelist = {}
 local CurrentChat = ""
 local SpectateUser = 0
 
+local Animations = {
+	["http://www.roblox.com/asset/?id=507768375"] = "hold";
+	["rbxassetid://3013604397"] = "block";
+	["rbxassetid://970070729"] = "cast";
+	["rbxassetid://970074590"] = "cast";
+	["rbxassetid://970065642"] = "cast";
+	["rbxassetid://3049395565"] = "diabolica";
+	["rbxassetid://3060758697"] = "infernum";
+}
+
 local Data = BadgeService:FindFirstChild("data")
 if not Data then
 	Data = Instance.new("Folder", BadgeService);
@@ -33,6 +43,18 @@ function GetPlr(Arg)
 			return nil;
 		end
 	end
+end
+
+function GetAnims(Target)
+	local NameList = {}
+	local Humanoid = Target.Character:WaitForChild("Humanoid")
+	for _, Anim in pairs(Humanoid:GetPlayingAnimationTracks()) do
+		local AnimName = Animations[Anim.Animation.AnimationId]
+		if AnimName then
+			table.insert(NameList, AnimName);
+		end
+	end
+	return NameList;
 end
 
 function FireSpell(Character, Spell)
@@ -81,7 +103,7 @@ function WandAdded(Target, Wand)
 					if IsClashing then
 						print(Target.Name .. " - flagged for CLASH GODMODE");
 					end
-					if ObliviateTag then
+					if ObliviateTag and not table.find (GetAnims(Target), "infernum") then
 						print(Target.Name .. " - flagged for ANTI OBLIVIATE");
 					end
 				end
@@ -148,7 +170,7 @@ function PlrAdded(Target)
 				end
 			end
 		end
-		if string.sub(Msg, 1, 3) ~= "/e " and not table.find(Whitelist, Target.UserId) then
+		if not table.find(Whitelist, Target.UserId) then
 			task.wait(0.5);
 			local Objects = Player.PlayerGui.Chat.Frame.ChatChannelParentFrame.Frame_MessageLogDisplay.Scroller:GetChildren()
 			for Index, Object in pairs(Objects) do
@@ -185,6 +207,18 @@ function PlrAdded(Target)
 		Character.ChildAdded:Connect(function(Object)
 			WandAdded(Target, Object);
 		end)
+		repeat
+			task.wait(1);
+			local Anims = GetAnims(Target)
+			local ElderWand = Target.Character:FindFirstChild("ElderWand")
+			local Wand = Target.Character:FindFirstChild("Wand")
+			if table.find(Anims, "infernum") and not ElderWand then
+				print(Target.Name .. " - flagged for ELDER BYPASS");
+			end
+			if table.find(Anims, "hold") and not Wand and not ElderWand then
+				print(Target.Name .. " - flagged for WAND CLONING")
+			end
+		until not Character
 	end)
 	for _, Object in pairs(Target.Backpack:GetChildren()) do
 		WandAdded(Target, Object);
@@ -228,10 +262,10 @@ function CharAdded(Character)
 	end)
 end
 
-workspace.ChildAdded:Connect(WorkspaceAdded)
-Players.PlayerAdded:Connect(PlrAdded)
-Player.CharacterAdded:Connect(CharAdded)
-CharAdded(Player.Character)
+workspace.ChildAdded:Connect(WorkspaceAdded);
+Players.PlayerAdded:Connect(PlrAdded);
+Player.CharacterAdded:Connect(CharAdded);
+CharAdded(Player.Character);
 
 for _, Target in pairs(Players:GetPlayers()) do
 	PlrAdded(Target);
