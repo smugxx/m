@@ -218,7 +218,19 @@ function PlrAdded(Target)
 				end
 			end
 			if table.find(Anims, "hold") and not Wand and not ElderWand then
-				print(Target.Name .. " - flagged for WAND CLONING")
+				for Index = 1, 3 do
+					task.wait(1);
+					local Anims = GetAnims(Target)
+					local ElderWand = Target.Character:FindFirstChild("Elder Wand")
+					local Wand = Target.Character:FindFirstChild("Wand")
+					if table.find(Anims, "hold") and not Wand and not ElderWand then
+						if Index == 3 then
+							print(Target.Name .. " - flagged for WAND CLONING");
+						end
+					else
+						break;
+					end
+				end
 			end
 		until not Character
 	end)
