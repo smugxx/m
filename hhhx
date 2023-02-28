@@ -210,7 +210,7 @@ function PlrAdded(Target)
 		repeat
 			task.wait(1);
 			local Anims = GetAnims(Target)
-			local ElderWand = Target.Character:FindFirstChild("ElderWand")
+			local ElderWand = Target.Character:FindFirstChild("Elder Wand")
 			local Wand = Target.Character:FindFirstChild("Wand")
 			if ElderWand then
 				if table.find(Anims, "infernum") or table.find(Anims, "diabolica") then
