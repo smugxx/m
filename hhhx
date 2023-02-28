@@ -212,8 +212,10 @@ function PlrAdded(Target)
 			local Anims = GetAnims(Target)
 			local ElderWand = Target.Character:FindFirstChild("ElderWand")
 			local Wand = Target.Character:FindFirstChild("Wand")
-			if table.find(Anims, "infernum") and not ElderWand then
-				print(Target.Name .. " - flagged for ELDER BYPASS");
+			if ElderWand then
+				if table.find(Anims, "infernum") or table.find(Anims, "diabolica") then
+					print(Target.Name .. " - flagged for ELDER BYPASS");
+				end
 			end
 			if table.find(Anims, "hold") and not Wand and not ElderWand then
 				print(Target.Name .. " - flagged for WAND CLONING")
