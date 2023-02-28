@@ -1972,19 +1972,19 @@ InputService.InputBegan:Connect(function(Input, Processed)
 						end
 					end
 				end
-				if KeyCooldownOn and not Cooldown then
+				if not KeyCooldownOn then
+					Players:Chat(Msg)
+					if not GhostHotkeysOn then
+						RepStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Msg, "All")
+					end
+				elseif KeyCooldownOn and not Cooldown then
 					Cooldown = true
 					Players:Chat(Msg)
 					if not GhostHotkeysOn then
 						RepStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Msg, "All")
 					end
-					wait(math.random(11, 16) / 10)
+					task.wait(1.2)
 					Cooldown = false
-				elseif not KeyCooldownOn then
-					Players:Chat(Msg)
-					if not GhostHotkeysOn then
-						RepStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Msg, "All")
-					end
 				end
 			end
 		end
