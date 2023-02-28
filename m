@@ -1361,9 +1361,15 @@ function AddCharacter()
 			end
 			PreDeathCFrame = Player.Character.PrimaryPart.CFrame
 		end)
+		Humanoid.ChildAdded:Connect(function(Object)
+			task.wait()
+			if Active and AutoProtectOn and Object.Name == "obliviateTag" then
+				Object:Destroy()
+			end
+		end)
 		Character.ChildAdded:Connect(function()
-			wait()
-			if Active and Character.Humanoid.Health ~= 0 then
+			task.wait()
+			if AutoProtectOn and Active and Character.Humanoid.Health ~= 0 then
 				if Character:FindFirstChild("ragdollModel") or Character:FindFirstChild("frozenData") or Character:FindFirstChild("bondageFolder") then
 					local Spell = "finite incantatem"
 					local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
