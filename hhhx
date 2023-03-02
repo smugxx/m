@@ -209,13 +209,13 @@ function PlrAdded(Target)
 			task.wait(1);
 			local Anims = GetAnims(Target)
 			local GeneralElder = Target.Backpack:FindFirstChild("Elder Wand") or Character:FindFirstChild("Elder Wand")
-			local EquippedWand = Character:FindFirstChild("Wand") or Character:FindFirstChild("Elder Wand")
+			--local EquippedWand = Character:FindFirstChild("Wand") or Character:FindFirstChild("Elder Wand")
 			if not GeneralElder then
 				if table.find(Anims, "infernum") or table.find(Anims, "diabolica") then
 					print(Target.Name .. " - flagged for ELDER BYPASS");
 				end
 			end
-			if table.find(Anims, "hold") and not EquippedWand then
+			--[[if table.find(Anims, "hold") and not EquippedWand then
 				for Index = 1, 5 do
 					task.wait(1);
 					local Anims = GetAnims(Target)
@@ -228,7 +228,7 @@ function PlrAdded(Target)
 						break;
 					end
 				end
-			end
+			end]]--
 		until not Character
 	end)
 	for _, Object in pairs(Target.Backpack:GetChildren()) do
