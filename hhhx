@@ -168,7 +168,7 @@ function PlrAdded(Target)
 				end
 			end
 		end
-		if string.sub(LoweredMsg, 1, 3) ~= "/e " and string.sub(LoweredMsg, 1, 9) ~= "/c system" and not table.find(Whitelist, Target.UserId) then
+		if string.sub(Msg, 1, 3) ~= "/e " and not table.find(Whitelist, Target.UserId) then
 			task.wait(0.5);
 			local Objects = Player.PlayerGui.Chat.Frame.ChatChannelParentFrame.Frame_MessageLogDisplay.Scroller:GetChildren()
 			for Index, Object in pairs(Objects) do
