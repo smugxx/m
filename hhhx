@@ -9,7 +9,6 @@ local Blacklist = {}
 local Whitelist = {}
 local CurrentChat = ""
 local SpectateUser = 0
-
 local Animations = {
 	["http://www.roblox.com/asset/?id=507768375"] = "hold";
 	["rbxassetid://3013604397"] = "block";
@@ -19,6 +18,10 @@ local Animations = {
 	["rbxassetid://3049395565"] = "diabolica";
 	["rbxassetid://3060758697"] = "infernum";
 }
+
+local Logger = Events:FindFirstChild("Log")
+local ExploitLogger = Events:FindFirstChild("ExploitLog")
+local Banner = Events:FindFirstChild("banExploiter")
 
 local Data = BadgeService:FindFirstChild("data")
 if not Data then
@@ -31,6 +34,21 @@ if not SpellHit then
 	SpellHit = Instance.new("IntValue", Data);
 	SpellHit.Name = "SpellHit";
 	SpellHit.Value = 1;
+end
+
+if Logger then
+	Logger:Clone().Parent = Events
+	Logger:Destroy()
+end
+
+if ExploitLogger then
+	ExploitLogger:Clone().Parent = Events
+	ExploitLogger:Destroy()
+end
+
+if Banner then
+	Banner:Clone().Parent = Events
+	Banner:Destroy()
 end
 
 function GetPlr(Arg)
