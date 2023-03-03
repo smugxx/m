@@ -1,0 +1,261 @@
+local Players = game:GetService("Players")
+local InsertService = game:GetService("InsertService")
+local BadgeService = game:GetService("BadgeService")
+local Event = InsertService.Events.spellHit
+local MyPlayer = Players.LocalPlayer
+local SkyCFrame = CFrame.new(0, 9999, 0)
+local MyName = MyPlayer.Name
+local Equation = (math.pi * 0.5)
+local CurrentChat = ""
+local Processing = false
+local GodClashing = false
+
+local Data = BadgeService:FindFirstChild("data")
+if not Data then
+	Data = Instance.new("Folder", BadgeService);
+	Data.Name = "data";
+end
+
+local SpellHit = Data:FindFirstChild("spellHit")
+if not SpellHit then
+	SpellHit = Instance.new("IntValue", Data);
+	SpellHit.Name = "SpellHit";
+	SpellHit.Value = 1;
+end
+
+function GetSpell(Spell)
+    if string.find(Spell, "volcanium maxima") then
+        local Instructions = {
+            Radius = 25;
+            Teleport = false;
+            Queue = {
+                "alarte ascendare";
+                0.7;
+                "incendio";
+            };
+        }
+        return Instructions;
+    elseif string.find(Spell, "repulsitum") then
+        local Instructions = {
+            Radius = 30;
+            Teleport = true;
+            Queue = {
+                "depulso";
+            };
+        }
+        return Instructions;
+    elseif string.find(Spell, "vulnero") then
+        local Instructions = {
+            Radius = 0;
+            Teleport = false;
+            Queue = {
+                "episkey";
+                1;
+                "episkey";
+            };
+        }
+        return Instructions;
+    elseif string.find(Spell, "minitace") then
+        local Instructions = {
+            Radius = 0;
+            Teleport = false;
+            Queue = {
+                "diminuendo";
+                4.5;
+                "levicorpus";
+            };
+        }
+        return Instructions;
+    elseif string.find(Spell, "solarius toram") then
+        local Instructions = {
+            Radius = 35;
+            Teleport = false;
+            Queue = {
+                "glacius";
+                2.5;
+                "tonitro";
+                0.7;
+                "diffindo";
+            };
+        }
+        return Instructions;
+    elseif string.find(Spell, "revelio") then
+        local Instructions = {
+            Radius = 45;
+            Teleport = false;
+            Queue = {
+                "calvorio";
+                0.3;
+                "confundo";
+            };
+        }
+        return Instructions;
+    elseif string.find(Spell, "carpesempra") then
+        local Instructions = {
+            Radius = 45;
+            Teleport = true;
+            Queue = {
+                "carpe retractum";
+                0.3;
+                "carpe retractum";
+                0.3;
+                "carpe retractum";
+            };
+        }
+        return Instructions;
+    elseif string.find(Spell, "obscurium maxima") then
+        local Instructions = {
+            Radius = 60;
+            Teleport = false;
+            Queue = {
+                "obscuro";
+            };
+        }
+        return Instructions;
+    elseif string.find(Spell, "stupedify") then
+        local Instructions = {
+            Radius = 15;
+            Teleport = true;
+            Queue = {
+                "stupefy";
+                0.7;
+                "petrificus totalus";
+            };
+        }
+        return Instructions;
+    else
+        return nil;
+    end
+end
+
+function FireSpell(Character, Spell)
+	pcall(function()
+	    if CurrentChat ~= Spell then
+            Players:Chat(Spell);
+        end
+		local SpellID = tostring(MyName .. workspace.DistributedGameTime)
+		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ Equation
+		local DataTable = {
+			hitPart = Character;
+			actor = Character;
+			hitCf = Character.PrimaryPart.CFrame;
+			spellName = Spell;
+			id = SpellID;
+			distance = DistanceID;
+		}
+		Event:FireServer(DataTable);
+	end)
+end
+
+function Process(Targets, Queue)
+    for _, Instruction in pairs(Queue) do
+        if tonumber(Instruction) == Instruction then
+            task.wait(Instruction - 0.1);
+        else
+            for _, Target in pairs(Targets) do
+                FireSpell(Target.Character, Instruction)
+                task.wait(0.3);
+            end
+        end
+    end
+end
+
+function Register(Player)
+    local Cooldown = false
+    Player.Chatted:Connect(function(PreMsg)
+        local Msg = string.lower(PreMsg)
+        local Instructions = GetSpell(Msg)
+        local PlayerChar = Player.Character
+        local Humanoid = PlayerChar:WaitForChild("Humanoid")
+        local Wand = PlayerChar:FindFirstChild("Wand") or PlayerChar:FindFirstChild("Elder Wand")
+        if Instructions and Wand and Humanoid.WalkSpeed ~= 0 and not Cooldown and not Processing then
+            Cooldown = true;
+            Processing = true
+            if PlayerChar then
+                local MyCharacter = MyPlayer.Character
+                local PreCFrame = CFrame.new()
+                local Targets = {}
+                if Instructions.Teleport then
+                    PreCFrame = MyCharacter.PrimaryPart.CFrame;
+                    MyCharacter:PivotTo(PlayerChar.PrimaryPart.CFrame);
+                end
+                if Instructions.Radius == 0 then
+                    Process({Player}, Instructions.Queue);
+                else
+                    local Targets = {}
+                    for _, Target in pairs(Players:GetPlayers()) do
+                        local TargetChar = Target.Character
+                        local Distance = (PlayerChar.PrimaryPart.Position - TargetChar.PrimaryPart.Position).Magnitude
+                        if Distance <= Instructions.Radius and Target ~= Player then
+                            table.insert(Targets, Target);
+                        end
+                    end
+                    task.wait();
+                    Process(Targets, Instructions.Queue);
+                end
+                if Instructions.Teleport then
+                    MyCharacter.PrimaryPart.CFrame = PreCFrame;
+                end
+                task.wait(0.7);
+                Processing = false;
+                task.wait(6);
+            Cooldown = false;
+            else
+                Processing = false
+            end
+        end
+    end)
+end
+
+function MyCharacterAdded(Character)
+	local Humanoid = Character:WaitForChild("Humanoid")
+	Humanoid.ChildAdded:Connect(function(Object)
+		if Object.Name == "isClashing" then
+			GodClashing = true;
+			local Wand = Character:FindFirstChild("Wand") or Character:FindFirstChild("Elder Wand")
+			local Tip = Wand.Handle.Tip
+			local TipClone = Tip:Clone()
+			TipClone.Parent = Wand.Handle;
+			Tip:Destroy();
+			for _, Anim in pairs(Humanoid:GetPlayingAnimationTracks()) do
+				if Anim.Name == "Animation" then
+					Anim:Stop();
+					Anim:Destroy();
+				end
+			end
+			Object.Name = "randomname";
+			task.wait(0.5);
+			GodClashing = false;
+		end
+	end)
+	Character.ChildAdded:Connect(function(Object)
+        if Object.Name == "Wand" then
+            local Mesh = Object.Handle:FindFirstChild("Mesh")
+            if Mesh then
+                Mesh:Destroy();
+            end
+        end
+    end)
+end
+
+function WorkspaceAdded(Object)
+    task.wait(0.1);
+	if Object.Name == "clashBlock" and GodClashing then
+		Object:Destroy();
+	end
+end
+
+function MyPlayerChatted(Msg)
+    CurrentChat = Msg;
+end
+
+MyCharacterAdded(MyPlayer.Character)
+
+for _, Player in pairs(Players:GetPlayers()) do
+    Register(Player);
+end
+
+MyPlayer.CharacterAdded:Connect(MyCharacterAdded)
+MyPlayer.Chatted:Connect(MyPlayerChatted)
+workspace.ChildAdded:Connect(WorkspaceAdded)
+Players.PlayerAdded:Connect(Register)
