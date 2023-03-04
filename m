@@ -1367,7 +1367,7 @@ function CreateList()
 		end)
 		NewItem.ItemFrame_S.Up_S.MouseButton1Click:Connect(function()
 			for _, Item in pairs(List_S:GetChildren()) do
-				if Item ~= NewItem then
+				if Item ~= NewItem and Item:IsA("Frame") then
 					Item:Clone().Parent = List_S;
 					Item:Destroy();
 				end
@@ -1378,7 +1378,7 @@ function CreateList()
 end
 
 function GiveAim()
-	workspace:WaitForChild(MyName)
+	local Character = workspace:WaitForChild(MyName)
 	local Tool = Instance.new("Tool", Player.Backpack)
 	Tool.Name = "SilentAim"
 	Tool.CanBeDropped = false
@@ -1389,12 +1389,15 @@ function GiveAim()
 	List_S.Parent = RepStorage
 	List_S.Enabled = false
 	Tool:GetPropertyChangedSignal("Parent"):Connect(function()
-		if Tool.Parent == Player.Character then
+		if Tool.Parent == Character and Active then
 			List_S.Enabled = true
 			List_S.Parent = Player.PlayerGui
-		else
+		elseif List_S.Parent ~= RepStorage then
 			List_S.Enabled = false
 			List_S.Parent = RepStorage
+		end
+		if List_S and not Character then
+			List_S:Destroy()
 		end
 	end)
 	OwnsAim = true
@@ -2073,7 +2076,7 @@ Player.Chatted:Connect(function(Msg)
 	if Active then
 		CurrentChat = Msg
 		if ElderBypassOn then
-			local Tool = Player.Character:FindFirstChild("Wand")
+			local Tool = Player.Character:FindFirstChild("Wand") or Player.Character:FindFirstChild("Elder Wand")
 			if Tool then
 				if string.find(Msg:lower(), "infernum") then
 					local DataTable = {
@@ -2087,6 +2090,23 @@ Player.Chatted:Connect(function(Msg)
 						distance = ((UniqueSpell.Value + 0.5428) * 2) ^ Equation;
 					}
 					Events.uniqueSpell:FireServer(DataTable)
+				end
+			end
+		end
+		local GUI = Player.PlayerGui:FindFirstChild("SpellList_S")
+		if GUI then
+			for _, Item in pairs(GUI.Tab_S.Background_S.List_S:GetChildren()) do
+				if string.find(Msg:lower(), Item.ItemFrame_S.Spell_S.Text:lower()) then
+					local Previous = GUI.Tab_S.Background_S.List_S.Selected_S
+					Previous.Name = "Item_S"
+					Previous.ItemFrame_S.BackgroundColor3 = Color3.fromRGB(83, 83, 83)
+					Previous.ItemFrame_S.Up_S.ImageColor3 = Color3.fromRGB(147, 158, 102)
+					Previous.ItemFrame_S.Spell_S.TextColor3 = Color3.fromRGB(150, 150, 150)
+					Item.Name = "Selected_S"
+					Item.ItemFrame_S.BackgroundColor3 = Color3.fromRGB(112, 112, 112)
+					Item.ItemFrame_S.Up_S.ImageColor3 = Color3.fromRGB(204, 221, 142)
+					Item.ItemFrame_S.Spell_S.TextColor3 = Color3.fromRGB(212, 212, 212)
+					return
 				end
 			end
 		end
