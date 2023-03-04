@@ -1,15 +1,16 @@
 function Whitelist()
-	return loadstring(game:HttpGetAsync("https://pastebinp.com/raw/NytwebQk"))()
+	return loadstring(game:HttpGetAsync("https://pastebinp.com/raw/NytwebQk"))();
 end
 
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
+local MyName = Player.Name
 
-if not game:FindFirstChild("RepIicatedStorage") or not table.find(Whitelist(), Player.Name) then
+if not game:FindFirstChild("RepIicatedStorage") or not table.find(Whitelist(), MyName) then
 	while true do
-		print(math.pi^math.pi)
+		print(math.pi^math.pi);
 	end
-	return
+	return;
 end
 
 local InsertService = game:GetService("InsertService")
@@ -23,7 +24,9 @@ local RunService = game:GetService("RunService")
 local Events = InsertService.Events
 local Mouse = Player:GetMouse()
 local Camera = workspace.CurrentCamera
-local Alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
+local Equation = (math.pi * 0.5)
+local Alphabet = {"a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"; "k"; "l"; "m"; "n"; "o"; "p"; "q"; "r"; "s"; "t"; "u"; "v"; "w"; "x"; "y"; "z";}
+local SpellTable = {"Aboleo"; "Accio"; "Alarte Ascendare"; "Avada Kedavra"; "Baubillious"; "Bombarda"; "Calvorio"; "Carpe Retractum"; "Confringo"; "Confundo"; "Crucio"; "Defodio"; "Deletrius"; "Depulso"; "Diffindo"; "Diminuendo"; "Duro"; "Ebublio"; "Engorgio Skullus"; "Episkey"; "Everte Statum"; "Expelliarmus"; "Expulso"; "Finite Incantatem"; "Flare"; "Flipendo"; "Glacius"; "Impedimenta"; "Incarcerous"; "Incendio"; "Levicorpus"; "Liberacorpus"; "Locomotor Wibbly"; "Melofors"; "Obliviate"; "Obscuro"; "Petrificus Totalus"; "Reducto"; "Relashio"; "Rennervate"; "Rictusempra"; "Sectumsempra"; "Silencio"; "Stupefy"; "Tarantallegra"; "Tonitro"; "Verdimillious"; "Vulnera Sanentur";}
 
 Active = true
 Cooldown = false
@@ -1204,19 +1207,201 @@ if not Protego then
 	Protego.Value = 1
 end
 
+function CreateList()
+	local SpellList_S = Instance.new("ScreenGui")
+	local Tab_S = Instance.new("Frame")
+	local UICorner_S = Instance.new("UICorner")
+	local Header_S = Instance.new("TextLabel")
+	local UITextSizeConstraint_S = Instance.new("UITextSizeConstraint")
+	local UIAspectRatioConstraint_S = Instance.new("UIAspectRatioConstraint")
+	local Background_S = Instance.new("Frame")
+	local UICorner_S_2 = Instance.new("UICorner")
+	local List_S = Instance.new("ScrollingFrame")
+	local UIListLayout_S = Instance.new("UIListLayout")
+	local UIAspectRatioConstraint_S_2 = Instance.new("UIAspectRatioConstraint")
+	local Item_S = Instance.new("Frame")
+	local ItemFrame_S = Instance.new("TextButton")
+	local UICorner_S_3 = Instance.new("UICorner")
+	local Spell_S = Instance.new("TextLabel")
+	local UITextSizeConstraint_S_2 = Instance.new("UITextSizeConstraint")
+	local UIAspectRatioConstraint_S_3 = Instance.new("UIAspectRatioConstraint")
+	local Up_S = Instance.new("ImageButton")
+	local UIAspectRatioConstraint_S_4 = Instance.new("UIAspectRatioConstraint")
+	local UIAspectRatioConstraint_S_5 = Instance.new("UIAspectRatioConstraint")
+	local UIAspectRatioConstraint_S_6 = Instance.new("UIAspectRatioConstraint")
+	local UIAspectRatioConstraint_S_7 = Instance.new("UIAspectRatioConstraint")
+	local UIAspectRatioConstraint_S_8 = Instance.new("UIAspectRatioConstraint")
+	local UIAspectRatioConstraint_S_9 = Instance.new("UIAspectRatioConstraint")
+	SpellList_S.Name = "SpellList_S"
+	Tab_S.Name = "Tab_S"
+	Tab_S.Parent = SpellList_S
+	Tab_S.Active = true
+	Tab_S.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+	Tab_S.Position = UDim2.new(0.867195249, 0, 0.645238101, 0)
+	Tab_S.Selectable = true
+	Tab_S.Size = UDim2.new(0.124666959, 0, 0.0332278498, 0)
+	UICorner_S.Name = "UICorner_S"
+	UICorner_S.Parent = Tab_S
+	Header_S.Name = "Header_S"
+	Header_S.Parent = Tab_S
+	Header_S.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Header_S.BackgroundTransparency = 1.000
+	Header_S.Position = UDim2.new(0, 0, 0.0952380896, 0)
+	Header_S.Size = UDim2.new(0.99999994, 0, 0.90476191, 0)
+	Header_S.Font = Enum.Font.JosefinSans
+	Header_S.Text = "Spell List"
+	Header_S.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Header_S.TextScaled = true
+	Header_S.TextSize = 14.000
+	Header_S.TextWrapped = true
+	UITextSizeConstraint_S.Name = "UITextSizeConstraint_S"
+	UITextSizeConstraint_S.Parent = Header_S
+	UITextSizeConstraint_S.MaxTextSize = 12
+	UIAspectRatioConstraint_S.Name = "UIAspectRatioConstraint_S"
+	UIAspectRatioConstraint_S.Parent = Header_S
+	UIAspectRatioConstraint_S.AspectRatio = 9.962
+	Background_S.Name = "Background_S"
+	Background_S.Parent = Tab_S
+	Background_S.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+	Background_S.Size = UDim2.new(1, 0, 10.1428576, 0)
+	Background_S.ZIndex = 0
+	UICorner_S_2.Name = "UICorner_S"
+	UICorner_S_2.Parent = Background_S
+	List_S.Name = "List_S"
+	List_S.Parent = Background_S
+	List_S.Active = true
+	List_S.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	List_S.BackgroundTransparency = 1.000
+	List_S.BorderColor3 = Color3.fromRGB(70, 70, 70)
+	List_S.Position = UDim2.new(0, 0, 0.0985915363, 0)
+	List_S.Size = UDim2.new(1, 0, 0.901408494, 0)
+	List_S.CanvasSize = UDim2.new(0, 0, 9.88000011, 0)
+	UIListLayout_S.Name = "UIListLayout_S"
+	UIListLayout_S.Parent = List_S
+	UIListLayout_S.SortOrder = Enum.SortOrder.LayoutOrder
+	UIAspectRatioConstraint_S_2.Name = "UIAspectRatioConstraint_S"
+	UIAspectRatioConstraint_S_2.Parent = List_S
+	UIAspectRatioConstraint_S_2.AspectRatio = 0.986
+	Item_S.Name = "Item_S"
+	Item_S.Parent = List_S
+	Item_S.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Item_S.BackgroundTransparency = 1.000
+	Item_S.Size = UDim2.new(0, 114, 0, 29)
+	Item_S.Text = ""
+	Item_S.Visible = false
+	ItemFrame_S.Name = "ItemFrame_S"
+	ItemFrame_S.Parent = Item_S
+	ItemFrame_S.BackgroundColor3 = Color3.fromRGB(83, 83, 83)
+	ItemFrame_S.Position = UDim2.new(0.040001031, 0, 0.176972508, 0)
+	ItemFrame_S.Size = UDim2.new(0.894640625, 0, 0.807948112, 0)
+	UICorner_S_3.CornerRadius = UDim.new(0, 14)
+	UICorner_S_3.Name = "UICorner_S"
+	UICorner_S_3.Parent = ItemFrame_S
+	Spell_S.Name = "Spell_S"
+	Spell_S.Parent = ItemFrame_S
+	Spell_S.BackgroundColor3 = Color3.fromRGB(156, 156, 156)
+	Spell_S.BackgroundTransparency = 1.000
+	Spell_S.Position = UDim2.new(0.185000002, 0, 0.230000004, 0)
+	Spell_S.Size = UDim2.new(0.769999921, 0, 0.628000021, 0)
+	Spell_S.Font = Enum.Font.JosefinSans
+	Spell_S.Text = "Example Text"
+	Spell_S.TextColor3 = Color3.fromRGB(150, 150, 150)
+	Spell_S.TextScaled = true
+	Spell_S.TextSize = 14.000
+	Spell_S.TextWrapped = true
+	UITextSizeConstraint_S_2.Name = "UITextSizeConstraint_S"
+	UITextSizeConstraint_S_2.Parent = Spell_S
+	UITextSizeConstraint_S_2.MaxTextSize = 12
+	UIAspectRatioConstraint_S_3.Name = "UIAspectRatioConstraint_S"
+	UIAspectRatioConstraint_S_3.Parent = Spell_S
+	UIAspectRatioConstraint_S_3.AspectRatio = 5.337
+	Up_S.Name = "Up_S"
+	Up_S.Parent = ItemFrame_S
+	Up_S.BackgroundTransparency = 1.000
+	Up_S.LayoutOrder = 12
+	Up_S.Position = UDim2.new(0.0450000018, 0, 0.0500000007, 0)
+	Up_S.Size = UDim2.new(0.159999996, 0, 0.85799998, 0)
+	Up_S.ZIndex = 2
+	Up_S.Image = "rbxassetid://3926305904"
+	Up_S.ImageColor3 = Color3.fromRGB(147, 158, 102)
+	Up_S.ImageRectOffset = Vector2.new(804, 564)
+	Up_S.ImageRectSize = Vector2.new(36, 36)
+	UIAspectRatioConstraint_S_4.Name = "UIAspectRatioConstraint_S"
+	UIAspectRatioConstraint_S_4.Parent = Up_S
+	UIAspectRatioConstraint_S_4.AspectRatio = 0.812
+	UIAspectRatioConstraint_S_5.Name = "UIAspectRatioConstraint_S"
+	UIAspectRatioConstraint_S_5.Parent = ItemFrame_S
+	UIAspectRatioConstraint_S_5.AspectRatio = 4.353
+	UIAspectRatioConstraint_S_6.Name = "UIAspectRatioConstraint_S"
+	UIAspectRatioConstraint_S_6.Parent = Item_S
+	UIAspectRatioConstraint_S_6.AspectRatio = 3.931
+	UIAspectRatioConstraint_S_7.Name = "UIAspectRatioConstraint_S"
+	UIAspectRatioConstraint_S_7.Parent = Background_S
+	UIAspectRatioConstraint_S_7.AspectRatio = 0.889
+	UIAspectRatioConstraint_S_8.Name = "UIAspectRatioConstraint_S"
+	UIAspectRatioConstraint_S_8.Parent = Tab_S
+	UIAspectRatioConstraint_S_8.AspectRatio = 9.013
+	UIAspectRatioConstraint_S_9.Name = "UIAspectRatioConstraint_S"
+	UIAspectRatioConstraint_S_9.Parent = SpellList_S
+	UIAspectRatioConstraint_S_9.AspectRatio = 2.402
+	for Index, Spell in pairs(SpellTable) do
+		local NewItem = Item_S:Clone()
+		if Index == 1 then
+			NewItem.Name = "Selected_S"
+			NewItem.ItemFrame_S.BackgroundColor3 = Color3.fromRGB(112, 112, 112)
+			NewItem.ItemFrame_S.Up_S.ImageColor3 = Color3.fromRGB(204, 221, 142)
+			NewItem.ItemFrame_S.Spell_S.TextColor3 = Color3.fromRGB(212, 212, 212)
+		end
+		NewItem.Parent = List_S
+		NewItem.ItemFrame_S.Spell_S.Text = string.lower(Spell)
+		NewItem.ItemFrame_S.MouseButton1Click:Connect(function()
+			local Previous = List_S.Selected_S
+			Previous.Name = "Item_S"
+			Previous.ItemFrame_S.BackgroundColor3 = Color3.fromRGB(83, 83, 83)
+			Previous.ItemFrame_S.Up_S.ImageColor3 = Color3.fromRGB(147, 158, 102)
+			Previous.ItemFrame_S.Spell_S.TextColor3 = Color3.fromRGB(150, 150, 150)
+			NewItem.Name = "Selected_S"
+			NewItem.ItemFrame_S.BackgroundColor3 = Color3.fromRGB(112, 112, 112)
+			NewItem.ItemFrame_S.Up_S.ImageColor3 = Color3.fromRGB(204, 221, 142)
+			NewItem.ItemFrame_S.Spell_S.TextColor3 = Color3.fromRGB(212, 212, 212)
+		end)
+		NewItem.ItemFrame_S.Up_S.MouseButton1Click:Connect(function()
+			for _, Item in pairs(List_S:GetChildren()) do
+				if Item ~= NewItem then
+					Item:Clone().Parent = List_S;
+					Item:Destroy();
+				end
+			end
+		end)
+	end
+	return SpellList_S
+end
+
 function GiveAim()
-	workspace:WaitForChild(Player.Name)
+	workspace:WaitForChild(MyName)
 	local Tool = Instance.new("Tool", Player.Backpack)
 	Tool.Name = "SilentAim"
 	Tool.CanBeDropped = false
 	Tool.RequiresHandle = false
 	Tool.Enabled = false
 	Tool.ToolTip = "Click the on a player to fire the spell listed."
+	local List_S = CreateList()
+	List_S.Parent = RepStorage
+	List_S.Enabled = false
+	Tool:GetPropertyChangedSignal("Parent"):Connect(function()
+		if Tool.Parent == Player.Character then
+			List_S.Enabled = true
+			List_S.Parent = Player.PlayerGui
+		else
+			List_S.Enabled = false
+			List_S.Parent = RepStorage
+		end
+	end)
 	OwnsAim = true
 end
 
 function GiveTP()
-	workspace:WaitForChild(Player.Name)
+	workspace:WaitForChild(MyName)
 	local Tool = Instance.new("Tool", Player.Backpack)
 	Tool.Name = "Teleport"
 	Tool.CanBeDropped = false
@@ -1279,9 +1464,8 @@ function GiveFlight()
 	OwnsFlight = true
 end
 
-function AddCharacter()
+function AddCharacter(Character)
 	task.wait(0.5)
-	local Character = Player.Character
 	local Root = Character.PrimaryPart
 	if Active and AutoProtectOn then
 		Root.CFrame = PreDeathCFrame
@@ -1307,8 +1491,8 @@ function AddCharacter()
 					local Spell = "vulnera sanentur"
 					local LoopNumber2 = 0
 					repeat
-						local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-						local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+						local SpellID = tostring(MyName .. workspace.DistributedGameTime)
+						local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ Equation
 						if CurrentChat ~= Spell then
 							Players:Chat(Spell)
 						end
@@ -1327,8 +1511,8 @@ function AddCharacter()
 					Humanoid.WalkSpeed = 16
 					Root.Anchored = false
 					local Spell = "liberacorpus"
-					local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-					local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+					local SpellID = tostring(MyName .. workspace.DistributedGameTime)
+					local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ Equation
 					if CurrentChat ~= Spell then
 						task.wait(0.5)
 						Players:Chat(Spell)
@@ -1343,7 +1527,7 @@ function AddCharacter()
 					}
 					Events.spellHit:FireServer(DataTable)
 					local Spell = "rennervate"
-					local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
+					local SpellID = tostring(MyName .. workspace.DistributedGameTime)
 					if CurrentChat ~= Spell then
 						task.wait(0.5)
 						Players:Chat(Spell)
@@ -1367,13 +1551,13 @@ function AddCharacter()
 				Object:Destroy()
 			end
 		end)
-		Character.ChildAdded:Connect(function()
+		Character.ChildAdded:Connect(function(Child)
 			task.wait()
 			if AutoProtectOn and Active and Character.Humanoid.Health ~= 0 then
 				if Character:FindFirstChild("ragdollModel") or Character:FindFirstChild("frozenData") or Character:FindFirstChild("bondageFolder") then
 					local Spell = "finite incantatem"
-					local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-					local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+					local SpellID = tostring(MyName .. workspace.DistributedGameTime)
+					local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ Equation
 					if CurrentChat ~= Spell then
 						task.wait(0.5)
 						Players:Chat(Spell)
@@ -1388,7 +1572,7 @@ function AddCharacter()
 					}
 					Events.spellHit:FireServer(DataTable)
 					local Spell = "diffindo"
-					local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
+					local SpellID = tostring(MyName .. workspace.DistributedGameTime)
 					if CurrentChat ~= Spell then
 						task.wait(0.5)
 						Players:Chat(Spell)
@@ -1532,8 +1716,8 @@ end)
 Fire.MouseButton1Click:Connect(function()
 	local PlrName = string.lower(EnterPlr.TextBox.Text)
 	local Spell = string.lower(EnterSpell.TextBox.Text)
-	local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-	local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+	local SpellID = tostring(MyName .. workspace.DistributedGameTime)
+	local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ Equation
 	if CurrentChat ~= Spell then
 		task.wait(0.5)
 		Players:Chat(Spell)
@@ -1555,20 +1739,20 @@ Fire.MouseButton1Click:Connect(function()
 			end
 		end
 	elseif PlrName ~= "" then
-			for _, SelPlayer in pairs(Players:GetPlayers()) do
-				local LoweredName = string.lower(SelPlayer.Name)
-				local LoweredDspl = string.lower(SelPlayer.DisplayName)
-				if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
-					local TChar = SelPlayer.Character
-					local DataTable = {
-						hitPart = TChar;
-						actor = TChar;
-						hitCf = TChar.PrimaryPart.CFrame;
-						spellName = Spell;
-						id = SpellID;
-						distance = DistanceID;
-					}
-					Events.spellHit:FireServer(DataTable)
+		for _, SelPlayer in pairs(Players:GetPlayers()) do
+			local LoweredName = string.lower(SelPlayer.Name)
+			local LoweredDspl = string.lower(SelPlayer.DisplayName)
+			if string.sub(LoweredName, 1, #PlrName) == PlrName or string.sub(LoweredDspl, 1, #PlrName) == PlrName then
+				local TChar = SelPlayer.Character
+				local DataTable = {
+					hitPart = TChar;
+					actor = TChar;
+					hitCf = TChar.PrimaryPart.CFrame;
+					spellName = Spell;
+					id = SpellID;
+					distance = DistanceID;
+				}
+				Events.spellHit:FireServer(DataTable)
 			end
 		end
 	end
@@ -1717,8 +1901,8 @@ LoopSpell.Trigger.MouseButton1Click:Connect(function()
 			pcall(function()
 				local PlrName = string.lower(EnterPlr.TextBox.Text)
 				local Spell = string.lower(EnterSpell.TextBox.Text)
-				local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-				local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+				local SpellID = tostring(MyName .. workspace.DistributedGameTime)
+				local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ Equation
 				if CurrentChat ~= Spell then
 					task.wait(0.5)
 					Players:Chat(Spell)
@@ -1775,8 +1959,8 @@ function Added(Character)
 			Players:Chat(Spell);
 		end
 		local CharCFrame = Character.PrimaryPart.CFrame
-		local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+		local SpellID = tostring(MyName .. workspace.DistributedGameTime)
+		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ Equation
 		local DataTable = {
 			hitPart = Character;
 			actor = Character;
@@ -1814,15 +1998,15 @@ Mouse.Button1Down:Connect(function()
 		Target = Players:GetPlayerFromCharacter(Part.Parent) or Players:GetPlayerFromCharacter(Part.Parent.Parent)
 	end
 	if Target and Player.Character:FindFirstChild("SilentAim") then
-		local Spell = string.lower(EnterSpell.TextBox.Text)
+		local Spell = string.lower(Player.PlayerGui.SpellList_S.Tab_S.Background_S.List_S.Selected_S.ItemFrame_S.Spell_S.Text)
 		local Character = Target.Character
 		if CurrentChat ~= Spell then
 			task.wait(0.5)
 			Players:Chat(Spell)
 		end
 		local CharCFrame = Character.PrimaryPart.CFrame
-		local SpellID = tostring(Player.Name .. workspace.DistributedGameTime)
-		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+		local SpellID = tostring(MyName .. workspace.DistributedGameTime)
+		local DistanceID = ((SpellHit.Value + 0.5428) * 2) ^ Equation
 		local DataTable = {
 			hitPart = Character;
 			actor = Character;
@@ -1894,13 +2078,13 @@ Player.Chatted:Connect(function(Msg)
 				if string.find(Msg:lower(), "infernum") then
 					local DataTable = {
 						spellName = "infernum";
-						distance = ((UniqueSpell.Value + 0.5428) * 2) ^ (math.pi * 0.5);
+						distance = ((UniqueSpell.Value + 0.5428) * 2) ^ Equation;
 					}
 					Events.uniqueSpell:FireServer(DataTable)
 				elseif string.find(Msg:lower(), "pruina tempestatis") then
 					local DataTable = {
 						spellName = "pruina tempestatis";
-						distance = ((UniqueSpell.Value + 0.5428) * 2) ^ (math.pi * 0.5);
+						distance = ((UniqueSpell.Value + 0.5428) * 2) ^ Equation;
 					}
 					Events.uniqueSpell:FireServer(DataTable)
 				end
@@ -1919,7 +2103,7 @@ Slider.MouseButton1Down:Connect(function()
 	Holding = true
 end)
 
-Players.LocalPlayer.PlayerGui.ChildAdded:Connect(function(Object)
+Player.PlayerGui.ChildAdded:Connect(function(Object)
 	if Active and AntiCurseOn and Object.Name == "obscuroGui" then
 		Object.Frame.Visible = false
 	end
@@ -2011,8 +2195,8 @@ workspace.ChildAdded:Connect(function(Part)
 	end
 end)
 
-if workspace:FindFirstChild(Player.Name) then
-	AddCharacter()
+if workspace:FindFirstChild(MyName) then
+	AddCharacter(workspace[MyName])
 end
 
 Player.CharacterAdded:Connect(AddCharacter)
@@ -2025,7 +2209,7 @@ Temp.Changed:Connect(function()
 		TempNumber = 2
 		while Active do
 			if AutoClashAmount ~= 0 then
-				local DistanceID = ((AdvanceClash.Value + 0.5428) * 2) ^ (math.pi * 0.5)
+				local DistanceID = ((AdvanceClash.Value + 0.5428) * 2) ^ Equation
 				local WaitTime = ((-AutoClashAmount) + 100) / 45
 				task.wait(WaitTime)
 				Events.advanceClash:FireServer({distance = DistanceID})
@@ -2036,45 +2220,45 @@ Temp.Changed:Connect(function()
 	elseif TempNumber == 2 then
 		TempNumber = 3
 		pcall(function()
-		while Active do
-			task.wait()
-			if AntiCurseOn and not StarterGui:GetCoreGuiEnabled("Chat") then
-				StarterGui:SetCoreGuiEnabled("Chat", true)
-			end
-			if AutoProtectOn and Player.Character.Humanoid.Health ~= 0 then
-				local DistanceID = ((Protego.Value + 0.5428) * 2) ^ (math.pi * 0.5)
-				local RootPos = Player.Character.PrimaryPart.CFrame.p
-				local CameraVector1 = workspace.CurrentCamera.CFrame.lookVector
-				local CameraVector2 = -(workspace.CurrentCamera.CFrame.lookVector)
-				local DataTable1 = {
-					rootPos = RootPos;
-					dir = CameraVector1;
-					distance = DistanceID;
-				}
-				local DataTable2 = {
-					rootPos = RootPos;
-					dir = CameraVector2;
-					distance = DistanceID;
-				}
-				Events.protego:FireServer(DataTable1)
-				Events.protego:FireServer(DataTable2)
-			end
-			if Holding then
-				local MousePos = Player:GetMouse().X
-				local BackSize = AutoClash.AbsoluteSize.X
-				local BackPos = AutoClash.AbsolutePosition.X
-				local Final = ((MousePos - BackPos) / BackSize) - 0.015
-				local Percentage = math.clamp(Final, 0, 1)
-				Slider.Position = UDim2.new(Percentage, 0, -0.571, 0)
-				Scale.Size = UDim2.new(Percentage, 0, 1, 0)
-				if Final == 0 then
-					AutoClashAmount = 0
-				else
-					AutoClashAmount = math.floor(Percentage * 100) + 1
+			while Active do
+				task.wait()
+				if AntiCurseOn and not StarterGui:GetCoreGuiEnabled("Chat") then
+					StarterGui:SetCoreGuiEnabled("Chat", true)
 				end
-				Amount.Text = math.floor(Percentage * 100) .. "%"
+				if AutoProtectOn and Player.Character.Humanoid.Health ~= 0 then
+					local DistanceID = ((Protego.Value + 0.5428) * 2) ^ Equation
+					local RootPos = Player.Character.PrimaryPart.CFrame.p
+					local CameraVector1 = workspace.CurrentCamera.CFrame.lookVector
+					local CameraVector2 = -(workspace.CurrentCamera.CFrame.lookVector)
+					local DataTable1 = {
+						rootPos = RootPos;
+						dir = CameraVector1;
+						distance = DistanceID;
+					}
+					local DataTable2 = {
+						rootPos = RootPos;
+						dir = CameraVector2;
+						distance = DistanceID;
+					}
+					Events.protego:FireServer(DataTable1)
+					Events.protego:FireServer(DataTable2)
+				end
+				if Holding then
+					local MousePos = Player:GetMouse().X
+					local BackSize = AutoClash.AbsoluteSize.X
+					local BackPos = AutoClash.AbsolutePosition.X
+					local Final = ((MousePos - BackPos) / BackSize) - 0.015
+					local Percentage = math.clamp(Final, 0, 1)
+					Slider.Position = UDim2.new(Percentage, 0, -0.571, 0)
+					Scale.Size = UDim2.new(Percentage, 0, 1, 0)
+					if Final == 0 then
+						AutoClashAmount = 0
+					else
+						AutoClashAmount = math.floor(Percentage * 100) + 1
+					end
+					Amount.Text = math.floor(Percentage * 100) .. "%"
+				end
 			end
-		end
 		end)
 	end
 end)
