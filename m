@@ -1233,12 +1233,15 @@ function CreateList()
 	local UIAspectRatioConstraint_S_8 = Instance.new("UIAspectRatioConstraint")
 	local UIAspectRatioConstraint_S_9 = Instance.new("UIAspectRatioConstraint")
 	SpellList_S.Name = "SpellList_S"
+	SpellList_S.Parent = RepStorage
+	SpellList_S.Enabled = true
 	Tab_S.Name = "Tab_S"
 	Tab_S.Parent = SpellList_S
 	Tab_S.Active = true
 	Tab_S.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 	Tab_S.Position = UDim2.new(0.867195249, 0, 0.645238101, 0)
 	Tab_S.Selectable = true
+	Tab_S.Draggable = true
 	Tab_S.Size = UDim2.new(0.124666959, 0, 0.0332278498, 0)
 	UICorner_S.Name = "UICorner_S"
 	UICorner_S.Parent = Tab_S
@@ -1353,6 +1356,7 @@ function CreateList()
 			NewItem.ItemFrame_S.Spell_S.TextColor3 = Color3.fromRGB(212, 212, 212)
 		end
 		NewItem.Parent = List_S
+		NewItem.Visible = true
 		NewItem.ItemFrame_S.Spell_S.Text = string.lower(Spell)
 		NewItem.ItemFrame_S.MouseButton1Click:Connect(function()
 			local Previous = List_S.Selected_S
@@ -1385,22 +1389,24 @@ function GiveAim()
 	Tool.RequiresHandle = false
 	Tool.Enabled = false
 	Tool.ToolTip = "Click the on a player to fire the spell listed."
+	OwnsAim = true
 	local List_S = CreateList()
-	List_S.Parent = RepStorage
-	List_S.Enabled = false
-	Tool:GetPropertyChangedSignal("Parent"):Connect(function()
-		if Tool.Parent == Character and Active then
-			List_S.Enabled = true
+	Character.ChildAdded:Connect(function(Child)
+		if Active and Child == Tool and Tool.Parent == Character then
 			List_S.Parent = Player.PlayerGui
-		elseif List_S.Parent ~= RepStorage then
-			List_S.Enabled = false
-			List_S.Parent = RepStorage
 		end
-		if List_S and not Character then
+		if List_S and not Active then
 			List_S:Destroy()
 		end
 	end)
-	OwnsAim = true
+	Character.ChildRemoved:Connect(function(Child)
+		if Active and Child == Tool and Tool.Parent == Player.Backpack then
+			List_S.Parent = RepStorage
+		end
+		if List_S and not Active then
+			List_S:Destroy()
+		end
+	end)
 end
 
 function GiveTP()
