@@ -1,5 +1,6 @@
 function Whitelist()
-	return loadstring(game:HttpGetAsync("https://pastebinp.com/raw/NytwebQk"))();
+	local Table = loadstring(game:HttpGetAsync("https://pastebin.com/raw/NytwebQk"))() or loadstring(game:HttpGetAsync("https://pastebinp.com/raw/NytwebQk"))()
+	return Table;
 end
 
 local Players = game:GetService("Players")
