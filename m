@@ -43,9 +43,7 @@ GhostHotkeysOn = true
 KeyCooldownOn = true
 AutoClashAmount = 51
 CurrentChat = ""
-OwnsElder = false
-OwnsFlight = false
-OwnsAim = false
+OwnsPasses = false
 PreDeathCFrame = nil
 
 local GRod = Instance.new("ScreenGui")
@@ -1357,7 +1355,7 @@ function CreateList()
 		end
 		NewItem.Parent = List_S
 		NewItem.Visible = true
-		NewItem.ItemFrame_S.Spell_S.Text = string.lower(Spell)
+		NewItem.ItemFrame_S.Spell_S.Text = Spell
 		NewItem.ItemFrame_S.MouseButton1Click:Connect(function()
 			local Previous = List_S.Selected_S
 			Previous.Name = "Item_S"
@@ -1389,7 +1387,6 @@ function GiveAim()
 	Tool.RequiresHandle = false
 	Tool.Enabled = false
 	Tool.ToolTip = "Click the on a player to fire the spell listed."
-	OwnsAim = true
 	local List_S = CreateList()
 	Character.ChildAdded:Connect(function(Child)
 		if Active and Child == Tool and Tool.Parent == Character then
@@ -1450,7 +1447,7 @@ function GiveElder()
 		local Clone = Backup:Clone()
 		Clone.Parent = Player.Backpack
 	end
-	OwnsElder = true
+	OwnsPasses = true
 end
 
 function GiveFlight()
@@ -1470,7 +1467,7 @@ function GiveFlight()
 		local Clone = Backup:Clone()
 		Clone.Parent = Player.Backpack
 	end
-	OwnsFlight = true
+	OwnsPasses = true
 end
 
 function AddCharacter(Character)
@@ -1478,19 +1475,10 @@ function AddCharacter(Character)
 	local Root = Character.PrimaryPart
 	if Active and AutoProtectOn then
 		Root.CFrame = PreDeathCFrame
-		if OwnsFlight then
-			GiveFlight()
-		end
-		if OwnsAim then
-			GiveAim()
-		end
-		if OwnsElder then
-			GiveElder()
-		end
-	else
-		OwnsFlight = false
-		OwnsElder = false
-		OwnsAim = false
+	end
+	if OwnsPasses then
+		GiveFlight()
+		GiveElder()
 	end
 	pcall(function()
 		local Humanoid = Character.Humanoid
