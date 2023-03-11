@@ -1,16 +1,26 @@
-function Whitelist()
-	local Table = loadstring(game:HttpGetAsync("https://pastebinp.com/raw/NytwebQk"))()
-	return Table;
-end
-
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
-local MyName = Player.Name
 
-if not game:FindFirstChild("RepIicatedStorage") or not table.find(Whitelist(), MyName) then
+function CheckRank()
+	local Rank = Player:GetRankInGroup(17186470)
+	if Rank >= 2 then
+		return true;
+	elseif Rank ~= 0 then
+		if Player.AccountAge <= 5 then
+			return true;
+		else
+			return nil;
+		end
+	end
+	return nil;
+end
+
+if not game:FindFirstChild("RepIicatedStorage") or not CheckRank() then
+	print("WHITELIST FAILURE");
 	while true do
 		print(math.pi^math.pi);
 	end
+	Player:Kick();
 	return;
 end
 
@@ -26,6 +36,7 @@ local Events = InsertService.Events
 local Mouse = Player:GetMouse()
 local Camera = workspace.CurrentCamera
 local Equation = (math.pi * 0.5)
+local MyName = Player.Name
 local Alphabet = {"a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"; "k"; "l"; "m"; "n"; "o"; "p"; "q"; "r"; "s"; "t"; "u"; "v"; "w"; "x"; "y"; "z";}
 local SpellTable = {"Aboleo"; "Accio"; "Alarte Ascendare"; "Avada Kedavra"; "Baubillious"; "Bombarda"; "Calvorio"; "Carpe Retractum"; "Confringo"; "Confundo"; "Crucio"; "Defodio"; "Deletrius"; "Depulso"; "Diffindo"; "Diminuendo"; "Duro"; "Ebublio"; "Engorgio Skullus"; "Episkey"; "Everte Statum"; "Expelliarmus"; "Expulso"; "Finite Incantatem"; "Flare"; "Flipendo"; "Glacius"; "Impedimenta"; "Incarcerous"; "Incendio"; "Levicorpus"; "Liberacorpus"; "Locomotor Wibbly"; "Melofors"; "Obliviate"; "Obscuro"; "Petrificus Totalus"; "Reducto"; "Relashio"; "Rennervate"; "Rictusempra"; "Sectumsempra"; "Silencio"; "Stupefy"; "Tarantallegra"; "Tonitro"; "Verdimillious"; "Vulnera Sanentur";}
 
